@@ -30,15 +30,15 @@ const About = () => {
           Welcome to Resto
         </Typography>
         <Typography sx={{ fontSize: "1.2rem" }}>
-          Welcome to Resto, your home for delicious Food! We`&apos;`re so glad
-          you`&apos;re here. We`&apos;re passionate about using fresh, local
+          Welcome to Resto, your home for delicious Food! We&apos;re so glad
+          you&apos;re here. We&apos;re passionate about using fresh, local
           ingredients to create dishes that are both flavorful and satisfying.
-          Our menu features a wide variety of options, so there`&apos;s
-          something for everyone. Whether you`&apos;re looking for a casual meal
-          with friends or a romantic dinner for two, we`&apos;re the perfect
-          place for you. We`&apos;ll make sure you have a dining experience that
-          you`&apos;ll never forget. So what are you waiting for? Come on in and
-          let us show you what we`&apos;re all about!
+          Our menu features a wide variety of options, so there&apos;s something
+          for everyone. Whether you&apos;re looking for a casual meal with
+          friends or a romantic dinner for two, we&apos;re the perfect place for
+          you. We&apos;ll make sure you have a dining experience that
+          you&apos;ll never forget. So what are you waiting for? Come on in and
+          let us show you what we&apos;re all about!
         </Typography>
         <br />
         <Typography sx={{ fontSize: "1.5rem", fontWeight: "800" }}>
@@ -47,7 +47,7 @@ const About = () => {
         <Typography sx={{ fontSize: "1.2rem" }}>
           Our mission is to provide our guests with a delicious and affordable
           dining experience around the world. We believe that everyone deserves
-          to enjoy a great meal, no matter their budget. That`&apos;s why we
+          to enjoy a great meal, no matter their budget. That&apos;s why we
           offer our food at a fraction of the cost of other restaurants in our
           area.
         </Typography>
