@@ -1,5 +1,5 @@
 import "../styles/HomeStyles.css";
-import Layout from "../components/layout/Layout/Layout";
+import Layout from "../components/layout/Layout";
 
 const Banner = `https://res.cloudinary.com/dduqxunnf/image/upload/v1690220780/resto/banner.jpg`;
 const Home = () => {
