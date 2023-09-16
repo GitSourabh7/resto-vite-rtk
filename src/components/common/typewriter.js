@@ -1,7 +1,7 @@
 import Typewriter from "typewriter-effect/dist/core";
 
 // Function for typewriter effect
-function hello() {
+export default function startTypewriter() {
   var app = document.getElementById("typing");
 
   var typewriter = new Typewriter(app, {
@@ -27,6 +27,6 @@ function hello() {
 }
 
 // Start the typewriter effect when the page loads
-window.addEventListener("load", () => {
-  hello();
-});
+window.onload = () => {
+  startTypewriter();
+};
