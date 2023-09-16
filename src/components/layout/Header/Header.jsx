@@ -76,7 +76,9 @@ const Header = () => {
               component="div"
               sx={{ flexGrow: 1, display: "flex" }}
             >
-              <img src={Logo} alt="logo" height={"45"} width="150" />
+              <NavLink to={"/"}>
+                <img src={Logo} alt="logo" height={"45"} width="150" />
+              </NavLink>
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul className="navigation-menu">
