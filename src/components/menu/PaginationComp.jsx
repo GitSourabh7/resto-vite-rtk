@@ -2,6 +2,7 @@ import Pagination from "@mui/material/Pagination";
 
 const PaginationComp = () => {
   const pageSize = 5;
+  // const page = 2;
   const handlePagination = () => {
     console.log("Handle Pagination");
   };
@@ -16,10 +17,10 @@ const PaginationComp = () => {
         marginLeft: 15,
       }}
       size="large"
+      defaultPage={1}
+      // page={page}
       count={pageSize}
       onChange={handlePagination}
-      hidePrevButton
-      hideNextButton
     />
   );
 };
