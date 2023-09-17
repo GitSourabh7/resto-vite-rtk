@@ -11,7 +11,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
 import "./HeaderStyle.css";
-// const Logo = `https://res.cloudinary.com/dduqxunnf/image/upload/v1690208310/resto/logo/resto_logo.svg`;
 import Logo from "../../../assets/logo.svg";
 
 const Header = () => {
