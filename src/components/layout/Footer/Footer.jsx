@@ -60,7 +60,7 @@ const Footer = () => {
         </Box>
         {/* Copyright */}
         <Typography
-          variant="h6"
+          variant="h8"
           sx={{
             display: "flex",
             "@media (max-width: 600px)": { fontSize: "1rem" },
