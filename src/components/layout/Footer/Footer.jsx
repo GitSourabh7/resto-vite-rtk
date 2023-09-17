@@ -23,7 +23,7 @@ const Footer = () => {
           {/* Logo */}
           <Box
             sx={{
-              mt: 2,
+              mt: 1,
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
