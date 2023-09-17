@@ -15,8 +15,9 @@ const CardButtons = () => {
       variant="text"
       aria-label="text button group"
       sx={{
+        top: "-55px",
         position: "relative",
-        bottom: "30px",
+        // bottom: "30px",
         padding: "10px",
         display: "flex",
         justifyContent: "space-around",
