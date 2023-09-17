@@ -12,7 +12,7 @@ const PaginationComp = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        margin: "20px",
+        marginTop: "10px",
         marginLeft: 15,
       }}
       size="large"

@@ -1,17 +1,28 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import { Box } from "@mui/material";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import CloseIcon from "@mui/icons-material/Close";
-import Slide from "@mui/material/Slide";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Delete } from "@mui/icons-material";
-import { Badge } from "@mui/material";
+
+// Components
+import {
+  AppBar,
+  Badge,
+  Box,
+  Button,
+  Dialog,
+  IconButton,
+  Slide,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+
+// Icons
+import {
+  Close as CloseIcon,
+  ShoppingCart as ShoppingCartIcon,
+} from "@mui/icons-material";
+
+// Components
 import CartSummary from "./CartSummary";
+import CartHeader from "./CartHeader";
+import CartItemList from "./CartItemList";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -48,22 +59,17 @@ export default function CartButton() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const handleRemove = () => {
-    console.log("Called remove");
-  };
-
   return (
     <div>
       <Badge
         badgeContent={stateValue ? stateValue.length : 0}
         color="primary"
-        sx={{ position: "fixed", my: "13rem", mx: "5rem" }}
+        sx={{ position: "fixed", my: 30, mx: "6rem", zIndex: 1 }}
       ></Badge>
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        sx={{ position: "fixed", my: "13rem", borderRadius: "20px" }}
+        sx={{ position: "fixed", my: 30, mx: "1rem", borderRadius: "20px" }}
       >
         <ShoppingCartIcon />
         Cart
@@ -91,111 +97,9 @@ export default function CartButton() {
         </AppBar>
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Box sx={{ display: "flex", flexDirection: "column", width: "80%" }}>
-            {/* Cart Header */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                bgcolor: "#00000022",
-                height: "3rem",
-                margin: "10px",
-                borderRadius: "5px",
-              }}
-            >
-              <Typography
-                sx={{ mx: "1em", fontSize: "1.2em", fontWeight: "800" }}
-              >
-                Cart : ({stateValue.length})
-              </Typography>
-            </Box>
-            {/* Cart Items list */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "-webkit-fill-available",
-              }}
-            >
-              {/* Item List */}
-              {stateValue.length ? (
-                stateValue.map((menu) => (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      bgcolor: "#00000022",
-                      mx: "10px",
-                      my: "1px",
-                      borderRadius: "5px",
-                    }}
-                    key={menu.id}
-                  >
-                    <Box
-                      component="img"
-                      sx={{
-                        m: 2,
-                        borderRadius: "10px",
-                        height: 120,
-                        width: 180,
-                      }}
-                      alt={menu.name}
-                      src={menu.image}
-                    />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        margin: "10px",
-                        width: "-webkit-fill-available",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          fontSize: "1.2em",
-                          fontWeight: "400",
-                          minWidth: "150px",
-                        }}
-                      >
-                        {menu.name}
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-around",
-                          mx: 2,
-                          width: "200px",
-                        }}
-                      >
-                        <Box
-                          sx={{ ml: "5", fontSize: "1.2em", fontWeight: "400" }}
-                        >
-                          ₹ {menu.price}
-                        </Box>
-                        <Button
-                          variant="outlined"
-                          startIcon={<Delete />}
-                          color="error"
-                          size="small"
-                          onClick={() => handleRemove(menu)}
-                        >
-                          Remove
-                        </Button>
-                      </Box>
-                    </Box>
-                  </Box>
-                ))
-              ) : (
-                <Box>
-                  <Typography variant="h4" sx={{ textAlign: "center" }}>
-                    Cart is empty
-                  </Typography>
-                </Box>
-              )}
-            </Box>
+            <CartHeader count={stateValue.length} />
+            <CartItemList itemList={stateValue} />
           </Box>
-          {/* Cart Summary */}
           <CartSummary cartItems={stateValue} />
         </Box>
       </Dialog>

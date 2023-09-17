@@ -12,7 +12,7 @@ const FilterButtons = () => {
     <ButtonGroup
       orientation="vertical"
       aria-label="vertical outlined button group"
-      sx={{ position: "fixed", mx: "2" }}
+      sx={{ position: "fixed", mx: 2, my: 3 }}
     >
       <Button key="all" id="all" variant="outlined" onClick={handleFilter}>
         All
