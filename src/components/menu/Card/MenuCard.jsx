@@ -10,7 +10,7 @@ const MenuCard = ({ menuList }) => {
         flexWrap: "wrap",
         justifyContent: "center",
         paddingLeft: "100px",
-        height: "460px",
+        height: "470px",
         overflowY: "scroll",
       }}
     >
