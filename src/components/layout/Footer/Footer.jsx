@@ -1,12 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import SocialIcons from "./SocialIcons/SocialIcons";
 import LogoTM from "../../../assets/logotm.svg";
 import TagLine from "../../../assets/tagline.svg";
-
-// Social Icons
-import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Footer = () => {
   return (
@@ -36,27 +31,7 @@ const Footer = () => {
           </Box>
 
           {/* Social Icons */}
-          <Box
-            sx={{
-              mt: 2,
-              "& svg": { fontSize: "40px", cursor: "pointer", mr: "1" },
-              "& svg:hover": {
-                color: "goldenrod",
-                transform: "translateX(5px)",
-                transition: "all 400ms",
-              },
-              "@media (max-width: 600px)": {
-                mt: 1,
-                display: "flex",
-                justifyContent: "center ",
-              },
-            }}
-          >
-            <InstagramIcon fontSize="small" />
-            <YouTubeIcon fontSize="small" />
-            <TwitterIcon fontSize="small" />
-            <GitHubIcon fontSize="small" />
-          </Box>
+          <SocialIcons />
         </Box>
         {/* Copyright */}
         <Typography
