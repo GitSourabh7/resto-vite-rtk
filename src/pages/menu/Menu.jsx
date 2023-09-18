@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
+import Layout from "../../components/layout/Layout";
+import FilterButtons from "../../components/menu/FilterButtons";
+import MenuCard from "../../components/menu/Card/MenuCard";
+import CartButton from "../../components/menu/Cart/CartButton";
+import PaginationComp from "../../components/menu/PaginationComp";
 
-import Layout from "../components/layout/Layout";
-import FilterButtons from "../components/menu/FilterButtons";
-import MenuCard from "../components/menu/Card/MenuCard";
-import CartButton from "../components/menu/Cart/CartButton";
-import PaginationComp from "../components/menu/PaginationComp";
+//styles
+import "../menu/MenuStyle.css";
 
 var menuList = [
   {
@@ -202,10 +204,14 @@ const Menu = () => {
           <FilterButtons />
           <CartButton />
         </Box>
-        {/* Menu */}
-        <MenuCard menuList={menuList} />
-        {/* Pagination */}
-        <PaginationComp />
+        <Box className="menu-container ">
+          {/* Menu */}
+          <MenuCard menuList={menuList} />
+          <Box className="pagination-container">
+            {/* Pagination */}
+            <PaginationComp />
+          </Box>
+        </Box>
       </Box>
     </Layout>
   );

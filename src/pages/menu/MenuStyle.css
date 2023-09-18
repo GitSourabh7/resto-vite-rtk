@@ -1,0 +1,17 @@
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pagination-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 70px;
+  display: inline-block;
+  padding: 5px;
+  border-color: #1976d2;
+  align-items: center;
+  justify-content: center;
+  width: calc(30px + 25%);
+  margin: 5px 0px 5px 0px;
+}
