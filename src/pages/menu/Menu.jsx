@@ -1,6 +1,11 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setMenus } from "../menu/MenuSlice";
+
+//Mui
 import { Box } from "@mui/material";
 import Layout from "../../components/layout/Layout";
-import FilterButtons from "../../components/menu/FilterButtons";
+import CategoryFilter from "../../components/menu/CategoryFilter";
 import MenuCard from "../../components/menu/Card/MenuCard";
 import CartButton from "../../components/menu/Cart/CartButton";
 import PaginationComp from "../../components/menu/PaginationComp";
@@ -8,7 +13,7 @@ import PaginationComp from "../../components/menu/PaginationComp";
 //styles
 import "../menu/MenuStyle.css";
 
-var menuList = [
+const menuData = [
   {
     id: 1,
     name: "Tempura",
@@ -192,23 +197,25 @@ var menuList = [
 ];
 
 const Menu = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Simulate fetching menu data from an API
+    setTimeout(() => {
+      dispatch(setMenus(menuData));
+    }, 1000);
+  }, [dispatch]);
+
   return (
     <Layout>
-      <Box
-        sx={{
-          p: 2,
-        }}
-      >
-        {/* Filter & Cart Button */}
+      <Box sx={{ p: 2 }}>
         <Box>
-          <FilterButtons />
+          <CategoryFilter />
           <CartButton />
         </Box>
         <Box className="menu-container ">
-          {/* Menu */}
-          <MenuCard menuList={menuList} />
+          <MenuCard />
           <Box className="pagination-container">
-            {/* Pagination */}
             <PaginationComp />
           </Box>
         </Box>
