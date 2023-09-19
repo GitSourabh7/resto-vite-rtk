@@ -1,8 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from "react-redux";
+import { selectMenus } from "../../../pages/menu/MenuSlice";
+
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
 
-const MenuCard = ({ menuList }) => {
+const MenuCard = () => {
+  const menus = useSelector(selectMenus);
+
   return (
     <Box
       sx={{
@@ -14,7 +19,7 @@ const MenuCard = ({ menuList }) => {
         overflowY: "scroll",
       }}
     >
-      {menuList.map((menu) => (
+      {menus.map((menu) => (
         <Card
           key={menu.name} // Used name as key
           sx={{
