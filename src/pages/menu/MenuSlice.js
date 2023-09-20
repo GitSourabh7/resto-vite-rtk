@@ -14,9 +14,6 @@ const menuSlice = createSlice({
       state.filteredMenus = action.payload;
     },
     filterByCategory: (state, action) => {
-      console.log("state:", state);
-      console.log("action:", action);
-
       state.selectedCategory = action.payload;
       state.filteredMenus = state.menus.filter(
         (menu) => menu.category === action.payload
