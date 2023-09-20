@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
-import { selectMenus } from "../../../pages/menu/MenuSlice";
 
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
 
+import { selectMenus } from "../../../pages/menu/MenuSlice";
+import { store } from "../../../store/store";
+
 const MenuCard = () => {
   const menus = useSelector(selectMenus);
+  const currentPage = useSelector((state) => state.pagination.currentPage);
+  const itemsPerPage = store.getState().pagination.itemsPerPage;
+  const firstItem = (currentPage - 1) * itemsPerPage;
+  const lastItem = firstItem + itemsPerPage;
 
   return (
     <Box
@@ -19,55 +25,57 @@ const MenuCard = () => {
         overflowY: "scroll",
       }}
     >
-      {menus.map((menu) => (
-        <Card
-          key={menu.name} // Used name as key
-          sx={{
-            maxWidth: "350px",
-            display: "flex",
-            m: 2,
-            borderRadius: "10px",
-          }}
-        >
-          <CardContent
+      {menus
+        .map((menu) => (
+          <Card
+            key={menu.name} // Used name as key
             sx={{
-              marginBottom: "-75px",
-              "&:hover": {
-                background: "#9c96960f",
-              },
+              maxWidth: "350px",
+              display: "flex",
+              m: 2,
+              borderRadius: "10px",
             }}
           >
-            <CardMedia
-              sx={{ minHeight: "300px", borderRadius: "20px" }}
-              component={"img"}
-              src={menu.image}
-              alt={menu.name}
-            />
-            <Box
+            <CardContent
               sx={{
-                textAlign: "center",
-                backgroundColor: "#c5ccc5c4",
-                padding: "15px",
-                position: "relative",
-                top: "-50px",
-                mx: "25px",
-                borderRadius: "30px",
+                marginBottom: "-75px",
+                "&:hover": {
+                  background: "#9c96960f",
+                },
               }}
             >
-              <Typography
-                variant="h5"
-                gutterBottom
-                component={"div"}
-                sx={{ fontFamily: "cursive" }}
+              <CardMedia
+                sx={{ minHeight: "300px", borderRadius: "20px" }}
+                component={"img"}
+                src={menu.image}
+                alt={menu.name}
+              />
+              <Box
+                sx={{
+                  textAlign: "center",
+                  backgroundColor: "#c5ccc5c4",
+                  padding: "15px",
+                  position: "relative",
+                  top: "-50px",
+                  mx: "25px",
+                  borderRadius: "30px",
+                }}
               >
-                {menu.name}
-              </Typography>
-              <Typography variant="body2">{menu.description}</Typography>
-            </Box>
-            <CardButtons menu={menu} />
-          </CardContent>
-        </Card>
-      ))}
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  component={"div"}
+                  sx={{ fontFamily: "cursive" }}
+                >
+                  {menu.name}
+                </Typography>
+                <Typography variant="body2">{menu.description}</Typography>
+              </Box>
+              <CardButtons menu={menu} />
+            </CardContent>
+          </Card>
+        ))
+        .slice(firstItem, lastItem)}
     </Box>
   );
 };
