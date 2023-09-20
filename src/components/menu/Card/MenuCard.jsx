@@ -83,7 +83,7 @@ const MenuCard = () => {
                 </Typography>
                 <Typography variant="body2">{menu.description}</Typography>
               </Box>
-              <CardButtons menu={menu} />
+              <CardButtons item={menu} />
             </CardContent>
           </Card>
         ))
