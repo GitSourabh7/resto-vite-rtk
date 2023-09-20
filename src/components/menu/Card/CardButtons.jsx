@@ -1,13 +1,22 @@
 import { Button, ButtonGroup } from "@mui/material";
-
-//Icons
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useDispatch } from "react-redux";
+import { addToCart, removeFromCart } from "../Cart/CartSlice";
 
-const CardButtons = () => {
+// eslint-disable-next-line react/prop-types
+const CardButtons = ({ item }) => {
+  const dispatch = useDispatch();
+
   const handleAddToCart = () => {
-    console.log("Clicked on Handle Cart");
+    dispatch(addToCart(item));
+    console.log("Item added to cart:", item);
+  };
+
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart(item)); // Dispatch the removeFromCart action with the item
+    console.log("Item removed from cart:", item);
   };
 
   return (
@@ -17,7 +26,6 @@ const CardButtons = () => {
       sx={{
         top: "-55px",
         position: "relative",
-        // bottom: "30px",
         padding: "10px",
         display: "flex",
         justifyContent: "space-around",
@@ -29,7 +37,7 @@ const CardButtons = () => {
       <Button sx={{ border: "none !important" }} onClick={handleAddToCart}>
         <ShoppingCartIcon fontSize="large" />
       </Button>
-      <Button sx={{ border: "none !important" }}>
+      <Button sx={{ border: "none !important" }} onClick={handleRemoveFromCart}>
         <FavoriteIcon fontSize="large" />
       </Button>
     </ButtonGroup>
