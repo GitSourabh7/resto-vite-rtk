@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react"; // Import useEffect and useRef
 
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
@@ -14,8 +15,19 @@ const MenuCard = () => {
   const firstItem = (currentPage - 1) * itemsPerPage;
   const lastItem = firstItem + itemsPerPage;
 
+  // Create a ref for the container element
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // Use the ref to scroll the container to the top
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  }, [menus, currentPage]);
+
   return (
     <Box
+      ref={containerRef} // Assign the ref to the container element
       sx={{
         display: "flex",
         flexWrap: "wrap",
