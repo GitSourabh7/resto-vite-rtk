@@ -1,10 +1,17 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from "react-redux";
+
 import { Box, Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
+import { removeFromCart } from "./CartSlice";
+
 const CartItemList = ({ cartItems }) => {
-  const handleRemove = () => {
-    console.log("Called remove");
+  const dispatch = useDispatch();
+
+  const handleRemove = (menu) => {
+    // Dispatch the removeFromCart action to remove the item from the cart
+    dispatch(removeFromCart({ id: menu.id }));
   };
 
   return (
