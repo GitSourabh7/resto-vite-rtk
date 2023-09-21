@@ -80,7 +80,7 @@ export default function CartButton() {
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Box sx={{ display: "flex", flexDirection: "column", width: "80%" }}>
             <CartHeader count={cartItems.length} />
-            <CartItemList itemList={cartItems} />
+            <CartItemList cartItems={cartItems} />
           </Box>
           <CartSummary cartItems={cartItems} />
         </Box>

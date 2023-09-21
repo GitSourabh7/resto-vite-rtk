@@ -2,7 +2,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
-const CartItemList = ({ itemList }) => {
+const CartItemList = ({ cartItems }) => {
   const handleRemove = () => {
     console.log("Called remove");
   };
@@ -16,8 +16,8 @@ const CartItemList = ({ itemList }) => {
       }}
     >
       {/* Item List */}
-      {itemList.length ? (
-        itemList.map((menu) => (
+      {cartItems.length ? (
+        cartItems.map((menu) => (
           <Box
             sx={{
               display: "flex",
