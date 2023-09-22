@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Button from "@mui/material/Button";
@@ -18,17 +18,12 @@ const CategoryFilter = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate fetching menu data from an API
-    setTimeout(() => {
-      fetch("http://localhost:8000/categories.json")
-        .then((response) => response.json())
-        .then((data) => {
-          setCategories(data);
-          setIsLoading(false);
-        });
-    }, 1000);
-  });
+  fetch("http://localhost:8000/categories.json")
+    .then((response) => response.json())
+    .then((data) => {
+      setCategories(data);
+      setIsLoading(false);
+    });
 
   // Function to handle button clicks and set the active button
   const handleCategoryClick = (category) => {
