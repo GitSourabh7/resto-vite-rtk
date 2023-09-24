@@ -1,19 +1,21 @@
 /* eslint-disable react/prop-types */
-import Button from "@mui/material/Button";
-import { Box } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Box, Typography, Button } from "@mui/material";
 
 const CartSummary = ({ cartItems }) => {
   const calculateSubTotal = () => {
-    let priceArray = [];
-    for (let k = 0; k < cartItems.length; k++) {
-      priceArray.push(cartItems[k].price);
+    let subTotal = 0;
+    for (let i = 0; i < cartItems.length; i++) {
+      subTotal += cartItems[i].price * cartItems[i].quantity;
     }
-    let subTotal = priceArray.reduce((partialSum, a) => partialSum + a, 0);
     return subTotal;
   };
 
-  return cartItems.length ? (
+  // Check if cartItems array is empty, and if so, don't render the component
+  if (cartItems.length === 0) {
+    return null;
+  }
+
+  return (
     <Box
       sx={{
         display: "flex",
@@ -38,7 +40,7 @@ const CartSummary = ({ cartItems }) => {
       </Typography>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>Items</Typography>
-        <Typography>₹ {calculateSubTotal(cartItems)}</Typography>
+        <Typography>₹ {calculateSubTotal()}</Typography>
       </Box>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>Delivery Charges</Typography>
@@ -48,15 +50,13 @@ const CartSummary = ({ cartItems }) => {
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography>Subtotal</Typography>
         <Typography>
-          ₹ {cartItems.length !== 0 ? calculateSubTotal(cartItems) + 80 : 0}
+          ₹ {calculateSubTotal() + (cartItems.length !== 0 ? 80 : 0)}
         </Typography>
       </Box>
       <Button variant="contained" sx={{ mt: 3 }}>
         Checkout
       </Button>
     </Box>
-  ) : (
-    <Box></Box>
   );
 };
 
