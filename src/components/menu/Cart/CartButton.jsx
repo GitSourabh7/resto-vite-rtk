@@ -32,6 +32,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function CartButton() {
   const [open, setOpen] = React.useState(false);
 
+  // Fetch cart items from Redux store directly
   const cartItems = useSelector((state) => state.cart.items);
 
   const handleClickOpen = () => {
@@ -41,6 +42,7 @@ export default function CartButton() {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <div>
       <Badge
