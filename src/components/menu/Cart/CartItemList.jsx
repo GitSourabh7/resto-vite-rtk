@@ -67,7 +67,7 @@ const CartItemList = ({ cartItems }) => {
                     sx={{
                       fontSize: "1.2em",
                       fontWeight: "400",
-                      minWidth: "100px",
+                      minWidth: "200px",
                     }}
                   >
                     {menu.name}
@@ -124,7 +124,7 @@ const CartItemList = ({ cartItems }) => {
             src="https://lottie.host/3fc835c3-fd54-46dc-a5b0-4529cbfdd072/vVzF7i3u3k.json"
             style={{ width: "680px" }}
           ></lottie-player>
-          <Typography variant="h4">Cart is empty</Typography>
+          <Typography variant="h4">Cart is Empty</Typography>
         </Box>
       )}
     </Box>
