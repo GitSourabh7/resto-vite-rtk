@@ -6,7 +6,7 @@ const menuSlice = createSlice({
   initialState: {
     menus: [],
     filteredMenus: [],
-    selectedCategory: null,
+    selectedCategory: "all",
   },
   reducers: {
     setMenus: (state, action) => {
