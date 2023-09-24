@@ -1,20 +1,27 @@
+/* eslint-disable react/prop-types */
 import { Button, ButtonGroup } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../Cart/CartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
 
-// eslint-disable-next-line react/prop-types
 const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(item));
-  };
+  // Use the selector to get the cart items
+  const cartItems = useSelector(selectCartItems);
 
-  const handleRemoveFromCart = () => {
-    dispatch(removeFromCart(item)); // Dispatch the removeFromCart action with the item
+  // Check if the item is in the cart
+  const isItemInCart = cartItems.some((cartItem) => cartItem.id === item.id);
+  const handleToggleCart = () => {
+    if (isItemInCart) {
+      // If the item is already in the cart, remove it
+      dispatch(removeFromCart(item));
+    } else {
+      // If the item is not in the cart, add it
+      dispatch(addToCart(item));
+    }
   };
 
   return (
@@ -32,10 +39,13 @@ const CardButtons = ({ item }) => {
       <Button sx={{ border: "none !important" }}>
         <ShareIcon fontSize="large" />
       </Button>
-      <Button sx={{ border: "none !important" }} onClick={handleAddToCart}>
-        <ShoppingCartIcon fontSize="large" />
+      <Button sx={{ border: "none !important" }} onClick={handleToggleCart}>
+        <ShoppingCartIcon
+          fontSize="large"
+          sx={{ color: isItemInCart ? "red" : undefined }}
+        />
       </Button>
-      <Button sx={{ border: "none !important" }} onClick={handleRemoveFromCart}>
+      <Button sx={{ border: "none !important" }}>
         <FavoriteIcon fontSize="large" />
       </Button>
     </ButtonGroup>
