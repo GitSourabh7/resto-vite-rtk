@@ -23,7 +23,7 @@ const Menu = () => {
   useEffect(() => {
     // Simulate fetching menu data from an API
     setTimeout(() => {
-      fetch("http://localhost:8000/menu.json")
+      fetch("http://localhost:3000/menu")
         .then((response) => response.json())
         .then((data) => {
           dispatch(setMenus(data));
