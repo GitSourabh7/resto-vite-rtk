@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import { Button, ButtonGroup } from "@mui/material";
+import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
 
@@ -29,7 +31,7 @@ const CardButtons = ({ item }) => {
       variant="text"
       aria-label="text button group"
       sx={{
-        top: "-55px",
+        top: "-50px",
         position: "relative",
         padding: "10px",
         display: "flex",
@@ -39,12 +41,24 @@ const CardButtons = ({ item }) => {
       <Button sx={{ border: "none !important" }}>
         <ShareIcon fontSize="large" />
       </Button>
-      <Button sx={{ border: "none !important" }} onClick={handleToggleCart}>
-        <ShoppingCartIcon
-          fontSize="large"
-          sx={{ color: isItemInCart ? "red" : undefined }}
-        />
-      </Button>
+      <Box
+        sx={{
+          borderStyle: "solid",
+          borderWidth: "2px",
+          borderRadius: "15px",
+          borderColor: isItemInCart ? "red" : "#1976d2",
+        }}
+      >
+        <Button sx={{ border: "none !important" }} onClick={handleToggleCart}>
+          <Typography sx={{ color: isItemInCart ? "red" : undefined }}>
+            {isItemInCart ? "Remove" : "Add To Cart"}
+          </Typography>
+          <ShoppingCartIcon
+            fontSize="large"
+            sx={{ color: isItemInCart ? "red" : undefined }}
+          />
+        </Button>
+      </Box>
       <Button sx={{ border: "none !important" }}>
         <FavoriteIcon fontSize="large" />
       </Button>
