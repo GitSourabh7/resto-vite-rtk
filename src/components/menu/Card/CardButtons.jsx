@@ -11,12 +11,12 @@ const CardButtons = ({ item }) => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(item));
-    console.log("Item added to cart:", item);
+    // console.log("Item added to cart:", item);
   };
 
   const handleRemoveFromCart = () => {
     dispatch(removeFromCart(item)); // Dispatch the removeFromCart action with the item
-    console.log("Item removed from cart:", item);
+    // console.log("Item removed from cart:", item);
   };
 
   return (
