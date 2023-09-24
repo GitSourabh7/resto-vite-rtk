@@ -1,5 +1,6 @@
 // cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 
 // Function to get cart items from local storage or provide an empty array
 const getCartItemsFromLocalStorage = () => {
@@ -77,3 +78,9 @@ const cartSlice = createSlice({
 export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity } =
   cartSlice.actions;
 export default cartSlice.reducer;
+
+// Create a selector to select cart items from the state
+export const selectCartItems = createSelector(
+  (state) => state.cart.items,
+  (items) => items
+);
