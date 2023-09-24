@@ -15,9 +15,13 @@ const menuSlice = createSlice({
     },
     filterByCategory: (state, action) => {
       state.selectedCategory = action.payload;
-      state.filteredMenus = state.menus.filter(
-        (menu) => menu.category === action.payload
-      );
+      if (action.payload === "all") {
+        state.filteredMenus = state.menus;
+      } else {
+        state.filteredMenus = state.menus.filter(
+          (menu) => menu.category === action.payload
+        );
+      }
     },
   },
 });
