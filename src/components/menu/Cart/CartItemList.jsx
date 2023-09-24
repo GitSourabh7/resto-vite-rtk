@@ -7,6 +7,8 @@ import { Delete } from "@mui/icons-material";
 import { removeFromCart } from "./CartSlice";
 import QuantityInput from "./QuantityInput";
 
+import "@lottiefiles/lottie-player";
+
 const CartItemList = ({ cartItems }) => {
   const dispatch = useDispatch();
 
@@ -108,10 +110,21 @@ const CartItemList = ({ cartItems }) => {
           );
         })
       ) : (
-        <Box>
-          <Typography variant="h4" sx={{ textAlign: "center" }}>
-            Cart is empty
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <lottie-player
+            autoplay
+            loop
+            mode="normal"
+            src="https://lottie.host/3fc835c3-fd54-46dc-a5b0-4529cbfdd072/vVzF7i3u3k.json"
+            style={{ width: "680px" }}
+          ></lottie-player>
+          <Typography variant="h4">Cart is empty</Typography>
         </Box>
       )}
     </Box>
