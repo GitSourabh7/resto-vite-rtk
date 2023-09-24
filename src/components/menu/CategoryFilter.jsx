@@ -18,7 +18,7 @@ const CategoryFilter = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  fetch("http://localhost:8000/categories.json")
+  fetch("http://localhost:3000/category")
     .then((response) => response.json())
     .then((data) => {
       setCategories(data);
