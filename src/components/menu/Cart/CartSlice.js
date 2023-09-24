@@ -1,10 +1,16 @@
 // cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
+// Function to get cart items from local storage or provide an empty array
+const getCartItemsFromLocalStorage = () => {
+  const storedCartItems = localStorage.getItem("cartItems");
+  return storedCartItems ? JSON.parse(storedCartItems) : [];
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [], // An array to store items in the cart
+    items: getCartItemsFromLocalStorage(), // Initialize with local storage data
   },
   reducers: {
     addToCart: (state, action) => {
@@ -21,27 +27,53 @@ const cartSlice = createSlice({
         // If it's a new item, add it to the cart with a quantity of 1
         state.items.push({ ...action.payload, quantity: 1 });
       }
+
+      // Update local storage after modifying the cart
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
 
     removeFromCart: (state, action) => {
-      const existingItem = state.items.find(
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+
+      // Update local storage after modifying the cart
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+    },
+
+    increaseQuantity: (state, action) => {
+      const itemToIncrease = state.items.find(
         (item) => item.id === action.payload.id
       );
 
-      if (existingItem) {
-        if (existingItem.quantity > 1) {
-          // Reduce the quantity if it's greater than 1
-          existingItem.quantity -= 1;
+      if (itemToIncrease) {
+        itemToIncrease.quantity += 1;
+
+        // Update local storage after modifying the cart
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
+      }
+    },
+
+    decreaseQuantity: (state, action) => {
+      const itemToDecrease = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+
+      if (itemToDecrease) {
+        if (itemToDecrease.quantity > 1) {
+          itemToDecrease.quantity -= 1;
         } else {
-          // Remove the item completely if the quantity is 1 or less
+          // Remove the item from the cart if its quantity becomes 0
           state.items = state.items.filter(
             (item) => item.id !== action.payload.id
           );
         }
+
+        // Update local storage after modifying the cart
+        localStorage.setItem("cartItems", JSON.stringify(state.items));
       }
     },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseQuantity, increaseQuantity } =
+  cartSlice.actions;
 export default cartSlice.reducer;
