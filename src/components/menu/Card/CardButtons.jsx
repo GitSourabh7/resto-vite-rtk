@@ -50,7 +50,7 @@ const CardButtons = ({ item }) => {
         }}
       >
         <Button sx={{ border: "none !important" }} onClick={handleToggleCart}>
-          <Typography sx={{ color: isItemInCart ? "red" : undefined }}>
+          <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
             {isItemInCart ? "Remove" : "Add To Cart"}
           </Typography>
           <ShoppingCartIcon
