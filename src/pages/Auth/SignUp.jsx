@@ -28,18 +28,40 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const formData = new FormData(event.currentTarget);
+
+    // Create an object with user data
+    const userData = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    try {
+      // Send a POST request to your server to create the user
+      const response = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+      if (response.ok) {
+        // User registration was successful, you can redirect to a login page or perform other actions
+        console.log("User registered successfully");
+      } else {
+        // Handle errors from the server, e.g., duplicate email, invalid data, etc.
+        console.error("User registration failed");
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error("An error occurred during registration:", error);
+    }
   };
 
   return (
