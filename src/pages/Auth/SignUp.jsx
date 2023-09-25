@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,38 +11,52 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        Resto
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+function Signup() {
+  const defaultTheme = createTheme();
 
-const defaultTheme = createTheme();
+  // State variables for form fields and error messages
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [generalError, setGeneralError] = useState(""); // New state for general errors
 
-export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+
+    // Reset general error message
+    setGeneralError("");
+
+    // Validate form fields
+    const validationErrors = {};
+    if (!firstName) {
+      validationErrors.firstName = "First name is required";
+    }
+    if (!lastName) {
+      validationErrors.lastName = "Last name is required";
+    }
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      validationErrors.email = "Invalid email address";
+    }
+    if (!password || password.length < 6) {
+      validationErrors.password = "Password must be at least 6 characters long";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      // If there are validation errors, update the state and don't submit the form
+      setErrors(validationErrors);
+      return;
+    }
 
     // Create an object with user data
     const userData = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      password: formData.get("password"),
+      firstName,
+      lastName,
+      email,
+      password,
     };
+
     try {
       // Send a POST request to your server to create the user
       const response = await fetch("http://localhost:3000/signup", {
@@ -51,16 +66,29 @@ export default function SignUp() {
         },
         body: JSON.stringify(userData),
       });
+
       if (response.ok) {
         // User registration was successful, you can redirect to a login page or perform other actions
         console.log("User registered successfully");
       } else {
         // Handle errors from the server, e.g., duplicate email, invalid data, etc.
         console.error("User registration failed");
+
+        // Assuming that the server sends back error messages in JSON format
+        const errorData = await response.json();
+
+        if (errorData.errors) {
+          // Update the errors state with the server-provided error messages
+          setErrors(errorData.errors);
+        } else if (errorData.message) {
+          // Set the general error message
+          setGeneralError(errorData.message);
+        }
       }
     } catch (error) {
       // Handle network errors or other exceptions
       console.error("An error occurred during registration:", error);
+      setGeneralError("An unexpected error occurred. Please try again later.");
     }
   };
 
@@ -88,6 +116,11 @@ export default function SignUp() {
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
+            {generalError && (
+              <Typography variant="caption" color="error">
+                {generalError}
+              </Typography>
+            )}
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -98,7 +131,14 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
+                {errors.firstName && (
+                  <Typography variant="caption" color="error">
+                    {errors.firstName}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -108,7 +148,14 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
+                {errors.lastName && (
+                  <Typography variant="caption" color="error">
+                    {errors.lastName}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -118,7 +165,14 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
+                {errors.email && (
+                  <Typography variant="caption" color="error">
+                    {errors.email}
+                  </Typography>
+                )}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -129,7 +183,14 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
+                {errors.password && (
+                  <Typography variant="caption" color="error">
+                    {errors.password}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
             <Button
@@ -149,8 +210,9 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );
 }
+
+export default Signup;
