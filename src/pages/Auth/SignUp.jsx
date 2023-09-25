@@ -69,7 +69,7 @@ function Signup() {
 
       if (response.ok) {
         // User registration was successful, you can redirect to a login page or perform other actions
-        console.log("User registered successfully");
+        alert("User registered successfully");
       } else {
         // Handle errors from the server
         const errorData = await response.json();
