@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Signup() {
+const Signup = () => {
   const defaultTheme = createTheme();
 
   // State variables for form fields and error messages
@@ -68,8 +70,8 @@ function Signup() {
       });
 
       if (response.ok) {
-        // User registration was successful, you can redirect to a login page or perform other actions
-        alert("User registered successfully");
+        // User registration was successful, show a success toast
+        toast.success("User registered successfully");
       } else {
         // Handle errors from the server
         const errorData = await response.json();
@@ -80,8 +82,8 @@ function Signup() {
         } else if (errorData.message) {
           // Check if the error message is about a duplicate email
           if (errorData.message === "Email address already in use") {
-            // Show an alert indicating that the email is already registered
-            alert("Email address already registered.");
+            // Show a toast indicating that the email is already registered
+            toast.error("Email address already registered.");
           } else {
             // Set the general error message
             setGeneralError(errorData.message);
@@ -214,8 +216,9 @@ function Signup() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar />
     </ThemeProvider>
   );
-}
+};
 
 export default Signup;
