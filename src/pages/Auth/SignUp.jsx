@@ -71,18 +71,21 @@ function Signup() {
         // User registration was successful, you can redirect to a login page or perform other actions
         console.log("User registered successfully");
       } else {
-        // Handle errors from the server, e.g., duplicate email, invalid data, etc.
-        console.error("User registration failed");
-
-        // Assuming that the server sends back error messages in JSON format
+        // Handle errors from the server
         const errorData = await response.json();
 
         if (errorData.errors) {
           // Update the errors state with the server-provided error messages
           setErrors(errorData.errors);
         } else if (errorData.message) {
-          // Set the general error message
-          setGeneralError(errorData.message);
+          // Check if the error message is about a duplicate email
+          if (errorData.message === "Email address already in use") {
+            // Show an alert indicating that the email is already registered
+            alert("Email address already registered.");
+          } else {
+            // Set the general error message
+            setGeneralError(errorData.message);
+          }
         }
       }
     } catch (error) {
