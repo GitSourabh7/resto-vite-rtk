@@ -37,6 +37,9 @@ export default function LogIn() {
     // Implement logout logic here, e.g., clear JWT token and set authentication to false
     setJwtToken("");
     setAuthenticated(false);
+
+    // Remove cartItems from local storage
+    localStorage.removeItem("cartItems");
   };
 
   const handleSubmit = async (event) => {
