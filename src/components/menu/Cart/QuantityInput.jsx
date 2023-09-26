@@ -55,7 +55,7 @@ export default function QuantityInput({ menu }) {
       min={1}
       max={99}
       value={menu.quantity}
-      id={menu.id.toString()}
+      id={menu.id}
     />
   );
 }
