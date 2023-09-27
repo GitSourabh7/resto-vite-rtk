@@ -1,4 +1,6 @@
-import * as React from "react";
+// AccountMenu.jsx
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
@@ -10,16 +12,38 @@ import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
+import { clearUser } from "../common/userSlice";
 
 export default function AccountMenu() {
+  const authenticated = useSelector((state) => !!state.user.id);
+  const dispatch = useDispatch();
+
+  // Use the specific selectUser selector
+  const user = useSelector((state) => state.user);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogin = () => {
+    // Redirect to the login page
+    console.log("Clicked on Login");
+  };
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+    // Clear the JWT token from local storage when logging out
+    localStorage.removeItem("jwtToken");
+    handleClose();
+  };
+
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -71,13 +95,14 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+        {/* Display user's first and last name instead of "Profile" */}
         <Typography
           sx={{
             textAlign: "center",
             padding: "10px",
           }}
         >
-          Profile
+          {`${user.firstName} ${user.lastName}`}
         </Typography>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -89,12 +114,17 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+
+        {authenticated ? (
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        ) : (
+          <MenuItem onClick={handleLogin}>Login</MenuItem>
+        )}
       </Menu>
     </React.Fragment>
   );
