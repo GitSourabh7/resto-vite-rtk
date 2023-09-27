@@ -71,11 +71,18 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Typography>Profile</Typography>
+        <Typography
+          sx={{
+            textAlign: "center",
+            padding: "10px",
+          }}
+        >
+          Profile
+        </Typography>
+        <Divider />
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
-        <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
