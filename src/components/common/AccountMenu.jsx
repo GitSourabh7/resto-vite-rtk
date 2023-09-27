@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
+import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -57,7 +58,14 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            {authenticated ? ( // Check if the user is authenticated
+              <Avatar
+                src={user.avatarUrl} // Use the user's avatar image URL
+                sx={{ width: 32, height: 32 }}
+              />
+            ) : (
+              <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+            )}
           </IconButton>
         </Tooltip>
       </Box>
@@ -107,7 +115,10 @@ export default function AccountMenu() {
         </Typography>
         <Divider />
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+          <ListItemIcon>
+            <PersonIcon fontSize="small" />
+          </ListItemIcon>
+          My account
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
