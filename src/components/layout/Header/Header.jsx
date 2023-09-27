@@ -10,8 +10,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
-import "./HeaderStyle.css";
 import Logo from "../../../assets/logo.svg";
+import "./HeaderStyle.css";
+import AccountMenu from "../../common/AccountMenu";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,6 +97,9 @@ const Header = () => {
                   <NavLink to={"/contact"}>Contact</NavLink>
                 </li>
               </ul>
+            </Box>
+            <Box>
+              <AccountMenu />
             </Box>
           </Toolbar>
         </AppBar>
