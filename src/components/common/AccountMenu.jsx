@@ -10,6 +10,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
+import LoginIcon from "@mui/icons-material/Login";
 import Logout from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
 import { clearUser } from "../common/userSlice";
@@ -95,14 +96,14 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {/* Display user's first and last name instead of "Profile" */}
+        {/* Display user's first and last name if authenticated, "Guest" otherwise */}
         <Typography
           sx={{
             textAlign: "center",
             padding: "10px",
           }}
         >
-          {`${user.firstName} ${user.lastName}`}
+          {authenticated ? `${user.firstName} ${user.lastName}` : "Guest"}
         </Typography>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -123,7 +124,12 @@ export default function AccountMenu() {
             Logout
           </MenuItem>
         ) : (
-          <MenuItem onClick={handleLogin}>Login</MenuItem>
+          <MenuItem onClick={handleLogin}>
+            <ListItemIcon>
+              <LoginIcon fontSize="small" /> {/* Add the Login icon */}
+            </ListItemIcon>
+            Login
+          </MenuItem>
         )}
       </Menu>
     </React.Fragment>
