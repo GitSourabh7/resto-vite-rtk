@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setUser,
+  clearUser,
+  selectUser,
+} from "../../components/common/userSlice";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,25 +27,16 @@ export default function LogIn() {
     password: "",
   });
 
-  const [authenticated, setAuthenticated] = useState(false); // Track authentication state
-  const [jwtToken, setJwtToken] = useState(""); // Store JWT token
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const authenticated = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const showToast = (message, type) => {
     toast[type](message);
   };
 
   const handleLogout = () => {
-    // Implement logout logic here, e.g., clear JWT token and set authentication to false
-    setJwtToken("");
-    setAuthenticated(false);
-
-    // Remove cartItems from local storage
-    localStorage.removeItem("cartItems");
+    dispatch(clearUser());
+    localStorage.removeItem("jwtToken");
   };
 
   const handleSubmit = async (event) => {
@@ -55,20 +52,27 @@ export default function LogIn() {
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (response.status === 200) {
-        // Successful login
         showToast("Login successful", "success");
-        setJwtToken(data.token); // Store the received JWT token
-        setAuthenticated(true); // Set authentication to true
-        console.log("Login successful:", data);
+
+        dispatch(
+          setUser({
+            firstName: data.user.first_name,
+            lastName: data.user.last_name,
+            email: data.user.email,
+            photo: data.user.avatar_url,
+            id: data.user.id,
+          })
+        );
+
+        localStorage.setItem("jwtToken", data.token);
       } else {
-        // Handle login failure, e.g., display an error message
         showToast(`Login failed: ${data.message}`, "error");
         console.error("Login failed:", data.message);
       }
     } catch (error) {
-      // Handle network errors or other exceptions
       showToast(
         "An unexpected error occurred. Please try again later.",
         "error"
@@ -78,20 +82,11 @@ export default function LogIn() {
   };
 
   useEffect(() => {
-    // Check for stored JWT token on page load
     const storedToken = localStorage.getItem("jwtToken");
     if (storedToken) {
-      // Verify the token on the server (you need to implement this)
-      // If valid, set authentication to true
-      setAuthenticated(true);
-      setJwtToken(storedToken);
+      dispatch(setUser()); // You might want to implement a way to retrieve user data based on the token
     }
-  }, []);
-
-  useEffect(() => {
-    // Store JWT token in local storage whenever it changes
-    localStorage.setItem("jwtToken", jwtToken);
-  }, [jwtToken]);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -109,9 +104,11 @@ export default function LogIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {authenticated ? "Welcome" : "Log in"}
+            {authenticated.firstName
+              ? `Welcome, ${authenticated.firstName}`
+              : "Log in"}
           </Typography>
-          {authenticated ? (
+          {authenticated.firstName ? (
             <Button
               onClick={handleLogout}
               fullWidth
@@ -137,7 +134,9 @@ export default function LogIn() {
                 autoComplete="email"
                 autoFocus
                 value={formData.email}
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
               <TextField
                 margin="normal"
@@ -149,7 +148,9 @@ export default function LogIn() {
                 id="password"
                 autoComplete="current-password"
                 value={formData.password}
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
               />
               <Button
                 type="submit"
