@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 import { Box, Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
@@ -8,13 +9,63 @@ import { removeFromCart } from "./CartSlice";
 import QuantityInput from "./QuantityInput";
 
 import "@lottiefiles/lottie-player";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
 
-const CartItemList = ({ cartItems }) => {
+const CartItemList = () => {
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items); // Get cartItems from Redux state
+  console.log(cartItems);
 
-  const handleRemove = (menu) => {
-    // Dispatch the removeFromCart action to remove the item from the cart
-    dispatch(removeFromCart({ id: menu.id }));
+  const userId = useSelector((state) => state.user.id); // Get the user object from Redux state
+
+  const handleRemove = async (menu) => {
+    try {
+      // Make a DELETE request to remove the item from the database
+      const response = await axios.delete(
+        `http://localhost:3000/cart/remove-from-cart`,
+        {
+          data: {
+            user_id: userId,
+            product_id: menu.id,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // Item successfully removed from the database
+        console.log("Item removed from the database");
+
+        // Show a success toast
+        toast.success("Item removed from cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+
+        // Delay dispatching the removeFromCart action by 1 second
+        setTimeout(() => {
+          // Dispatch the removeFromCart action to update the local state
+          dispatch(removeFromCart({ id: menu.id }));
+        }, 1000); // 1000 milliseconds (1 second) delay
+      } else {
+        // Handle the error if the request fails
+        console.error("Error removing item from the database");
+
+        // Show an error toast
+        toast.error("Error removing item from cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+      }
+    } catch (error) {
+      console.error("Error removing item from the database:", error);
+
+      // Show an error toast
+      toast.error("Error removing item from cart", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000, // Set the display time in milliseconds
+      });
+    }
   };
 
   return (
