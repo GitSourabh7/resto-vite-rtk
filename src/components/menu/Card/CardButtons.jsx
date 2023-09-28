@@ -6,87 +6,126 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
 import { selectUser } from "../../common/userSlice";
-import axios from "axios"; // Import Axios for making HTTP requests
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
+
+import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
 
 const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
-
-  // Use the selector to get the cart items
   const cartItems = useSelector(selectCartItems);
-
-  // Check if the item is in the cart
   const isItemInCart = cartItems.some((cartItem) => cartItem.id === item.id);
-
-  // Use the selector to get the user authentication status
   const user = useSelector(selectUser);
-  const isAuthenticated = !!user.id; // Check if the user is authenticated
+  const isAuthenticated = !!user.id;
 
-  const handleToggleCart = () => {
+  const handleToggleCart = async () => {
     if (!isAuthenticated) {
-      // If not authenticated, do nothing
       return;
     }
 
     if (isItemInCart) {
-      // If the item is already in the cart, remove it from the Redux store and the database
-      dispatch(removeFromCart(item));
+      try {
+        dispatch(removeFromCart(item));
 
-      // Make an HTTP request to remove the item from the database
-      axios.delete("http://localhost:3000/cart/remove-from-cart", {
-        data: { user_id: user.id, product_id: item.id },
-      });
+        const response = await axios.delete(
+          "http://localhost:3000/cart/remove-from-cart",
+          {
+            data: { user_id: user.id, product_id: item.id },
+          }
+        );
+
+        // Show a success toast
+        toast.success("Item removed from cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+
+        console.log(
+          `Remove from Cart Response Status: ${response.status} - ${response.statusText}`
+        );
+      } catch (error) {
+        console.error("Remove from Cart Error:", error);
+        // Show an error toast
+        toast.error("Error removing item from cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+      }
     } else {
-      // If the item is not in the cart, add it to the Redux store and the database
-      dispatch(addToCart(item));
+      try {
+        dispatch(addToCart(item));
 
-      // Make an HTTP request to add the item to the database
-      axios.post("http://localhost:3000/cart/add-to-cart", {
-        user_id: user.id,
-        product_id: item.id,
-        product_name: item.name,
-        quantity: 1, // Default quantity for adding to cart
-      });
+        const response = await axios.post(
+          "http://localhost:3000/cart/add-to-cart",
+          {
+            user_id: user.id,
+            product_id: item.id,
+            product_name: item.name,
+            quantity: 1,
+          }
+        );
+
+        // Show a success toast
+        toast.success("Item added to cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+
+        console.log(
+          `Add to Cart Response Status: ${response.status} - ${response.statusText}`
+        );
+      } catch (error) {
+        console.error("Add to Cart Error:", error);
+        // Show an error toast
+        toast.error("Error adding item to cart", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000, // Set the display time in milliseconds
+        });
+      }
     }
   };
 
   return (
-    <ButtonGroup
-      variant="text"
-      aria-label="text button group"
-      sx={{
-        top: "-50px",
-        position: "relative",
-        padding: "10px",
-        display: "flex",
-        justifyContent: "space-around",
-      }}
-    >
-      <Button sx={{ border: "none !important", borderRadius: "999px" }}>
-        <ShareIcon fontSize="large" />
-      </Button>
-      <Button
+    <>
+      <ButtonGroup
+        variant="text"
+        aria-label="text button group"
         sx={{
-          border: `2px solid ${isItemInCart ? "red" : "#1976d2"} !important`,
-          borderRadius: "999px", // Rounded shape
+          top: "-50px",
+          position: "relative",
+          padding: "10px",
+          display: "flex",
+          justifyContent: "space-around",
         }}
-        onClick={handleToggleCart}
-        disabled={!isAuthenticated}
       >
-        <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
-          {isItemInCart ? "Remove" : "Add To Cart"}
-        </Typography>
-        <ShoppingCartIcon
-          fontSize="large"
-          sx={{ color: isItemInCart ? "red" : undefined }}
-        />
-      </Button>
-      <Button
-        sx={{ border: "none !important", borderRadius: "999px" }}
-        disabled={!isAuthenticated}
-      >
-        <FavoriteIcon fontSize="large" />
-      </Button>
-    </ButtonGroup>
+        <Button sx={{ border: "none !important", borderRadius: "999px" }}>
+          <ShareIcon fontSize="large" />
+        </Button>
+        <Button
+          sx={{
+            border: `2px solid ${isItemInCart ? "red" : "#1976d2"} !important`,
+            borderRadius: "999px", // Rounded shape
+          }}
+          onClick={handleToggleCart}
+          disabled={!isAuthenticated}
+        >
+          <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
+            {isItemInCart ? "Remove" : "Add To Cart"}
+          </Typography>
+          <ShoppingCartIcon
+            fontSize="large"
+            sx={{ color: isItemInCart ? "red" : undefined }}
+          />
+        </Button>
+        <Button
+          sx={{ border: "none !important", borderRadius: "999px" }}
+          disabled={!isAuthenticated}
+        >
+          <FavoriteIcon fontSize="large" />
+        </Button>
+      </ButtonGroup>
+      <ToastContainer />
+    </>
   );
 };
 
