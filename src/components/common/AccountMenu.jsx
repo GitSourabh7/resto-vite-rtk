@@ -14,6 +14,7 @@ import Settings from "@mui/icons-material/Settings";
 import LoginIcon from "@mui/icons-material/Login";
 import Logout from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
+import { clearCart } from "../menu/Cart/CartSlice";
 import { clearUser } from "../common/userSlice";
 
 export default function AccountMenu() {
@@ -41,7 +42,7 @@ export default function AccountMenu() {
 
   const handleLogout = () => {
     dispatch(clearUser());
-    // Clear the JWT token from local storage when logging out
+    dispatch(clearCart()); // Clear the cart when the user logs out
     localStorage.removeItem("jwtToken");
     handleClose();
   };
