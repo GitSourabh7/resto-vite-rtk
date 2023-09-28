@@ -6,6 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
 import { selectUser } from "../../common/userSlice";
+import axios from "axios"; // Import Axios for making HTTP requests
 
 const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
@@ -27,11 +28,24 @@ const CardButtons = ({ item }) => {
     }
 
     if (isItemInCart) {
-      // If the item is already in the cart, remove it
+      // If the item is already in the cart, remove it from the Redux store and the database
       dispatch(removeFromCart(item));
+
+      // Make an HTTP request to remove the item from the database
+      axios.delete("http://localhost:3000/cart/remove-from-cart", {
+        data: { user_id: user.id, product_id: item.id },
+      });
     } else {
-      // If the item is not in the cart, add it
+      // If the item is not in the cart, add it to the Redux store and the database
       dispatch(addToCart(item));
+
+      // Make an HTTP request to add the item to the database
+      axios.post("http://localhost:3000/cart/add-to-cart", {
+        user_id: user.id,
+        product_id: item.id,
+        product_name: item.name,
+        quantity: 1, // Default quantity for adding to cart
+      });
     }
   };
 
