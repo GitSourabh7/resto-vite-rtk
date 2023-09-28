@@ -1,12 +1,13 @@
-import { Box, Button, ButtonGroup, Typography } from "@mui/material";
+import PropTypes from "prop-types";
+import { Button, ButtonGroup, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
-import PropTypes from "prop-types";
+import { selectUser } from "../../common/userSlice";
 
-const CardButtons = ({ item, isAuthenticated }) => {
+const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
 
   // Use the selector to get the cart items
@@ -15,7 +16,16 @@ const CardButtons = ({ item, isAuthenticated }) => {
   // Check if the item is in the cart
   const isItemInCart = cartItems.some((cartItem) => cartItem.id === item.id);
 
+  // Use the selector to get the user authentication status
+  const user = useSelector(selectUser);
+  const isAuthenticated = !!user.id; // Check if the user is authenticated
+
   const handleToggleCart = () => {
+    if (!isAuthenticated) {
+      // If not authenticated, do nothing
+      return;
+    }
+
     if (isItemInCart) {
       // If the item is already in the cart, remove it
       dispatch(removeFromCart(item));
@@ -37,42 +47,38 @@ const CardButtons = ({ item, isAuthenticated }) => {
         justifyContent: "space-around",
       }}
     >
-      <Button sx={{ border: "none !important" }}>
+      <Button sx={{ border: "none !important", borderRadius: "999px" }}>
         <ShareIcon fontSize="large" />
       </Button>
-      <Box
+      <Button
         sx={{
-          borderStyle: "solid",
-          borderWidth: "2px",
-          borderRadius: "15px",
-          borderColor: isItemInCart ? "red" : "#1976d2",
+          border: `2px solid ${isItemInCart ? "red" : "#1976d2"} !important`,
+          borderRadius: "999px", // Rounded shape
         }}
+        onClick={handleToggleCart}
+        disabled={!isAuthenticated}
       >
-        <Button
-          sx={{ border: "none !important" }}
-          onClick={handleToggleCart}
-          disabled={!isAuthenticated} // Disable the button if not authenticated
-        >
-          <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
-            {isItemInCart ? "Remove" : "Add To Cart"}
-          </Typography>
-          <ShoppingCartIcon
-            fontSize="large"
-            sx={{ color: isItemInCart ? "red" : undefined }}
-          />
-        </Button>
-      </Box>
-      <Button sx={{ border: "none !important" }} disabled={!isAuthenticated}>
+        <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
+          {isItemInCart ? "Remove" : "Add To Cart"}
+        </Typography>
+        <ShoppingCartIcon
+          fontSize="large"
+          sx={{ color: isItemInCart ? "red" : undefined }}
+        />
+      </Button>
+      <Button
+        sx={{ border: "none !important", borderRadius: "999px" }}
+        disabled={!isAuthenticated}
+      >
         <FavoriteIcon fontSize="large" />
       </Button>
     </ButtonGroup>
   );
 };
 
-// Add props validation
+// Prop type validation
 CardButtons.propTypes = {
-  item: PropTypes.object.isRequired, // You can adjust the PropTypes as needed
-  isAuthenticated: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired, // Ensure 'item' prop is an object
 };
 
 export default CardButtons;
