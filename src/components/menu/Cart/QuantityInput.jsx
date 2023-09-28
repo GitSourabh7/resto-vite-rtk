@@ -1,41 +1,112 @@
-/* eslint-disable react/prop-types */
-import * as React from "react";
-import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
-import { styled } from "@mui/system";
-import RemoveIcon from "@mui/icons-material/Remove";
-import AddIcon from "@mui/icons-material/Add";
+import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseQuantity, decreaseQuantity } from "./CartSlice";
-import axios from "axios"; // Import Axios for making HTTP requests
+import axios from "axios";
+import { styled } from "@mui/system";
+import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 
+// Styled components using MUI's styling system
+const StyledInputRoot = styled("div")({
+  fontFamily: "IBM Plex Sans, sans-serif",
+  fontWeight: 400,
+  color: (theme) =>
+    theme.palette.mode === "dark" ? theme.grey[300] : theme.grey[500],
+  display: "flex",
+  flexFlow: "row nowrap",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
+const StyledInput = styled("input")({
+  fontSize: "0.875rem",
+  fontFamily: "inherit",
+  fontWeight: 400,
+  lineHeight: 1.375,
+  color: (theme) =>
+    theme.palette.mode === "dark" ? theme.grey[300] : theme.grey[900],
+  background: (theme) =>
+    theme.palette.mode === "dark" ? theme.grey[900] : "#fff",
+  border: (theme) =>
+    `1px solid ${
+      theme.palette.mode === "dark" ? theme.grey[700] : theme.grey[200]
+    }`,
+  borderRadius: "4px",
+  margin: "0 4px",
+  padding: "10px 12px",
+  outline: 0,
+  minWidth: 0,
+  width: "4rem",
+  textAlign: "center",
+  "&:hover": {
+    borderColor: (theme) => theme.blue[400],
+  },
+  "&:focus": {
+    borderColor: (theme) => theme.blue[400],
+    boxShadow: (theme) =>
+      `0 0 0 3px ${
+        theme.palette.mode === "dark" ? theme.blue[500] : theme.blue[200]
+      }`,
+  },
+  "&:focus-visible": {
+    outline: 0,
+  },
+});
+
+const StyledButton = styled("button")({
+  fontFamily: "IBM Plex Sans, sans-serif",
+  fontSize: "0.875rem",
+  boxSizing: "border-box",
+  lineHeight: 1.5,
+  border: 0,
+  borderRadius: "999px",
+  color: (theme) =>
+    theme.palette.mode === "dark" ? theme.blue[300] : theme.blue[600],
+  background: "transparent",
+  width: "40px",
+  height: "40px",
+  display: "flex",
+  flexFlow: "row nowrap",
+  justifyContent: "center",
+  alignItems: "center",
+  transitionProperty: "all",
+  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+  transitionDuration: "120ms",
+  "&:hover": {
+    background: (theme) =>
+      theme.palette.mode === "dark" ? theme.blue[800] : theme.blue[100],
+    cursor: "pointer",
+  },
+  "&:focus-visible": {
+    outline: 0,
+  },
+  "&.increment": {
+    order: 1,
+  },
+});
+
+// CustomNumberInput component
 const CustomNumberInput = React.forwardRef(function CustomNumberInput(
   props,
   ref
 ) {
   const dispatch = useDispatch();
-
-  // Inside your CustomNumberInput component:
   const userId = useSelector((state) => state.user.id);
 
-  // Now, you can use `userId` in your axios requests:
   const handleIncrement = () => {
-    // Dispatch the increaseQuantity action
     dispatch(increaseQuantity({ id: props.id }));
-
-    // Make an HTTP request to update the quantity in the database
     axios.post("http://localhost:3000/cart/increase-quantity", {
-      user_id: userId, // Access 'userId' from the Redux store
+      user_id: userId,
       product_id: props.id,
     });
   };
 
   const handleDecrement = () => {
-    // Dispatch the decreaseQuantity action
     dispatch(decreaseQuantity({ id: props.id }));
-
-    // Make an HTTP request to update the quantity in the database
     axios.post("http://localhost:3000/cart/decrease-quantity", {
-      user_id: userId, // Access 'userId' from the Redux store
+      user_id: userId,
       product_id: props.id,
     });
   };
@@ -64,6 +135,11 @@ const CustomNumberInput = React.forwardRef(function CustomNumberInput(
   );
 });
 
+CustomNumberInput.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+// QuantityInput component
 export default function QuantityInput({ menu }) {
   return (
     <CustomNumberInput
@@ -76,106 +152,9 @@ export default function QuantityInput({ menu }) {
   );
 }
 
-const blue = {
-  100: "#daecff",
-  200: "#b6daff",
-  300: "#66b2ff",
-  400: "#3399ff",
-  500: "#007fff",
-  600: "#0072e5",
-  800: "#004c99",
+QuantityInput.propTypes = {
+  menu: PropTypes.shape({
+    quantity: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
-
-const grey = {
-  50: "#f6f8fa",
-  100: "#eaeef2",
-  200: "#d0d7de",
-  300: "#afb8c1",
-  400: "#8c959f",
-  500: "#6e7781",
-  600: "#57606a",
-  700: "#424a53",
-  800: "#32383f",
-  900: "#24292f",
-};
-
-const StyledInputRoot = styled("div")(
-  ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  font-weight: 400;
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[500]};
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-`
-);
-
-const StyledInput = styled("input")(
-  ({ theme }) => `
-  font-size: 0.875rem;
-  font-family: inherit;
-  font-weight: 400;
-  line-height: 1.375;
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  border-radius: 4px;
-  margin: 0 4px;
-  padding: 10px 12px;
-  outline: 0;
-  min-width: 0;
-  width: 4rem;
-  text-align: center;
-
-  &:hover {
-    border-color: ${blue[400]};
-  }
-
-  &:focus {
-    border-color: ${blue[400]};
-    box-shadow: 0 0 0 3px ${
-      theme.palette.mode === "dark" ? blue[500] : blue[200]
-    };
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
-`
-);
-
-const StyledButton = styled("button")(
-  ({ theme }) => `
-  font-family: IBM Plex Sans, sans-serif;
-  font-size: 0.875rem;
-  box-sizing: border-box;
-  line-height: 1.5;
-  border: 0;
-  border-radius: 999px;
-  color: ${theme.palette.mode === "dark" ? blue[300] : blue[600]};
-  background: transparent;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 120ms;
-
-  &:hover {
-    background: ${theme.palette.mode === "dark" ? blue[800] : blue[100]};
-    cursor: pointer;
-  }
-
-  &:focus-visible {
-    outline: 0;
-  }
-
-  &.increment {
-    order: 1;
-  }
-`
-);
