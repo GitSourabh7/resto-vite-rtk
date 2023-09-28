@@ -76,9 +76,8 @@ const CardButtons = ({ item }) => {
   );
 };
 
-// Prop type validation
 CardButtons.propTypes = {
-  item: PropTypes.object.isRequired, // Ensure 'item' prop is an object
+  item: PropTypes.object.isRequired, // Ensure 'item' prop is an object and is required
 };
 
 export default CardButtons;
