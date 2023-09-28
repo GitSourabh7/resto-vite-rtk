@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setCartItems } from "../../components/menu/Cart/CartSlice";
 
 const defaultTheme = createTheme();
 
@@ -43,7 +44,6 @@ export default function LogIn() {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (response.status === 200) {
         showToast("Login successful", "success");
@@ -59,6 +59,21 @@ export default function LogIn() {
         );
 
         localStorage.setItem("jwtToken", data.token);
+
+        // Trigger a new request to fetch cart data
+        const cartResponse = await fetch("http://localhost:3000/cart", {
+          method: "GET",
+          headers: {
+            "X-User-ID": data.user.id, // Include the user ID in the request headers
+          },
+        });
+
+        const cartData = await cartResponse.json();
+
+        // Dispatch the cart data to set cart items in the Redux store
+        dispatch(setCartItems(cartData));
+
+        // Handle the cart data as needed
       } else {
         showToast(`Login failed: ${data.message}`, "error");
         console.error("Login failed:", data.message);
