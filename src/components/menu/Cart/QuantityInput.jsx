@@ -146,7 +146,7 @@ export default function QuantityInput({ menu }) {
       aria-label="Quantity Input"
       min={1}
       max={99}
-      value={menu.quantity}
+      value={menu.quantity || 1} // Set a default value of 1 if menu.quantity is falsy
       id={menu.id}
     />
   );
