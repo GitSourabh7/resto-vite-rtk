@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from "prop-types"; // Import PropTypes at the top of your file
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
@@ -15,7 +15,6 @@ import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
 const CartItemList = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items); // Get cartItems from Redux state
-  console.log(cartItems);
 
   const userId = useSelector((state) => state.user.id); // Get the user object from Redux state
 
@@ -180,6 +179,16 @@ const CartItemList = () => {
       )}
     </Box>
   );
+};
+
+// Add props validation using PropTypes
+CartItemList.propTypes = {
+  userId: PropTypes.number.isRequired, // userId is expected to be a number and is required
+};
+
+// Provide a default value for userId if it's not provided
+CartItemList.defaultProps = {
+  userId: 1, // You can set the default value to whatever you prefer
 };
 
 export default CartItemList;
