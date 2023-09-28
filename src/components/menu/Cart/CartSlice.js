@@ -2,16 +2,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 
-// Function to get cart items from local storage or provide an empty array
-const getCartItemsFromLocalStorage = () => {
-  const storedCartItems = localStorage.getItem("cartItems");
-  return storedCartItems ? JSON.parse(storedCartItems) : [];
-};
-
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: getCartItemsFromLocalStorage(), // Initialize with local storage data
+    items: [], // Initialize with an empty array
   },
   reducers: {
     addToCart: (state, action) => {
@@ -77,6 +71,11 @@ const cartSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.items));
       }
     },
+
+    // New reducer to set cart items directly
+    setCartItems: (state, action) => {
+      state.items = action.payload;
+    },
   },
 });
 
@@ -86,6 +85,7 @@ export const {
   clearCart,
   decreaseQuantity,
   increaseQuantity,
+  setCartItems,
 } = cartSlice.actions;
 export default cartSlice.reducer;
 
