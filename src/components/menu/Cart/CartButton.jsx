@@ -31,9 +31,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function CartButton() {
   const [open, setOpen] = React.useState(false);
-
-  // Fetch cart items from Redux store directly
   const cartItems = useSelector((state) => state.cart.items);
+  const authenticated = useSelector((state) => !!state.user.id); // Check if the user is authenticated
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,7 +52,14 @@ export default function CartButton() {
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        sx={{ position: "fixed", my: 30, mx: "1rem", borderRadius: "20px" }}
+        sx={{
+          position: "fixed",
+          my: 30,
+          mx: "1rem",
+          borderRadius: "20px",
+        }}
+        // Disable the button if the user is not authenticated
+        disabled={!authenticated}
       >
         <ShoppingCartIcon />
         Cart
