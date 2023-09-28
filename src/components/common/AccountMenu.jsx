@@ -1,4 +1,3 @@
-// AccountMenu.jsx
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
@@ -16,12 +15,13 @@ import Logout from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
 import { clearCart } from "../menu/Cart/CartSlice";
 import { clearUser } from "../common/userSlice";
+import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css"; // Import the Toastify CSS
 
 export default function AccountMenu() {
   const authenticated = useSelector((state) => !!state.user.id);
   const dispatch = useDispatch();
 
-  // Use the specific selectUser selector
   const user = useSelector((state) => state.user);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,15 +36,26 @@ export default function AccountMenu() {
   };
 
   const handleLogin = () => {
-    // Redirect to the login page
     console.log("Clicked on Login");
   };
 
   const handleLogout = () => {
+    console.log("Logging out...");
     dispatch(clearUser());
-    dispatch(clearCart()); // Clear the cart when the user logs out
+    dispatch(clearCart());
     localStorage.removeItem("jwtToken");
     handleClose();
+
+    // Show a toast notification when the user logs out
+    toast.success("You have been logged out", {
+      position: "top-right",
+      autoClose: 3000, // Close after 3 seconds
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
@@ -59,11 +70,8 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            {authenticated ? ( // Check if the user is authenticated
-              <Avatar
-                src={user.avatarUrl} // Use the user's avatar image URL
-                sx={{ width: 32, height: 32 }}
-              />
+            {authenticated ? (
+              <Avatar src={user.avatarUrl} sx={{ width: 32, height: 32 }} />
             ) : (
               <Avatar sx={{ width: 32, height: 32 }}></Avatar>
             )}
@@ -105,7 +113,6 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {/* Display user's first and last name if authenticated, "Guest" otherwise */}
         <Typography
           sx={{
             textAlign: "center",
@@ -138,12 +145,15 @@ export default function AccountMenu() {
         ) : (
           <MenuItem onClick={handleLogin}>
             <ListItemIcon>
-              <LoginIcon fontSize="small" /> {/* Add the Login icon */}
+              <LoginIcon fontSize="small" />
             </ListItemIcon>
             Login
           </MenuItem>
         )}
       </Menu>
+
+      {/* Render the ToastContainer for notifications */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </React.Fragment>
   );
 }
