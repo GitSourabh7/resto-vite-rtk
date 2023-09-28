@@ -4,9 +4,9 @@ import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberIn
 import { styled } from "@mui/system";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-
-import { useDispatch } from "react-redux";
-import { increaseQuantity, decreaseQuantity } from "./CartSlice"; // Adjust the path to your cartSlice.js
+import { useDispatch, useSelector } from "react-redux";
+import { increaseQuantity, decreaseQuantity } from "./CartSlice";
+import axios from "axios"; // Import Axios for making HTTP requests
 
 const CustomNumberInput = React.forwardRef(function CustomNumberInput(
   props,
@@ -14,14 +14,30 @@ const CustomNumberInput = React.forwardRef(function CustomNumberInput(
 ) {
   const dispatch = useDispatch();
 
+  // Inside your CustomNumberInput component:
+  const userId = useSelector((state) => state.user.id);
+
+  // Now, you can use `userId` in your axios requests:
   const handleIncrement = () => {
     // Dispatch the increaseQuantity action
     dispatch(increaseQuantity({ id: props.id }));
+
+    // Make an HTTP request to update the quantity in the database
+    axios.post("http://localhost:3000/cart/increase-quantity", {
+      user_id: userId, // Access 'userId' from the Redux store
+      product_id: props.id,
+    });
   };
 
   const handleDecrement = () => {
-    // Dispatch the increaseQuantity action
+    // Dispatch the decreaseQuantity action
     dispatch(decreaseQuantity({ id: props.id }));
+
+    // Make an HTTP request to update the quantity in the database
+    axios.post("http://localhost:3000/cart/decrease-quantity", {
+      user_id: userId, // Access 'userId' from the Redux store
+      product_id: props.id,
+    });
   };
 
   return (
