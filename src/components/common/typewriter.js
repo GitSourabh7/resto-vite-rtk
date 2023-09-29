@@ -12,16 +12,16 @@ export default function startTypewriter() {
   typewriter
     .pauseFor(500)
     .typeString("Best global food restaurant in ")
-    .typeString(`<strong><span style="color: #27ae60;">India</span></strong>`)
+    .typeString(`<strong><span style="color: #1976d2;">India</span></strong>`)
     .pauseFor(500)
     .deleteChars(5)
-    .typeString(`<strong><span style="color: #27ae60;">China</span></strong>`)
+    .typeString(`<strong><span style="color: #1976d2;">China</span></strong>`)
     .pauseFor(500)
     .deleteChars(5)
-    .typeString(`<strong><span style="color: #27ae60;">Japan</span></strong>`)
+    .typeString(`<strong><span style="color: #1976d2;">Japan</span></strong>`)
     .pauseFor(500)
     .deleteChars(5)
-    .typeString(`<strong><span style="color: #27ae60;">Italy</span></strong>`)
+    .typeString(`<strong><span style="color: #1976d2;">Italy</span></strong>`)
     .pauseFor(500)
     .start();
 }
