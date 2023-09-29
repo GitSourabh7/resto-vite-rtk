@@ -23,7 +23,7 @@ const PaginationComp = () => {
         border: "2px solid #1976d2", // Customize the outer border color and style
         borderRadius: "40px", // Add rounded corners if desired
         padding: "8px", // Add some padding for spacing
-        marginTop: "10px",
+        margin: "10px",
       }}
     >
       <Pagination
