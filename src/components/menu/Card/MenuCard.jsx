@@ -1,10 +1,7 @@
-/* eslint-disable react/prop-types */
 import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react"; // Import useEffect and useRef
-
+import { useEffect, useRef, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
-
 import { selectMenus } from "../../../pages/menu/MenuSlice";
 import { store } from "../../../store/store";
 
@@ -15,19 +12,27 @@ const MenuCard = () => {
   const firstItem = (currentPage - 1) * itemsPerPage;
   const lastItem = firstItem + itemsPerPage;
 
-  // Create a ref for the container element
   const containerRef = useRef(null);
+  const [showFullDescriptions, setShowFullDescriptions] = useState(
+    menus.map(() => false)
+  );
 
   useEffect(() => {
-    // Use the ref to scroll the container to the top
     if (containerRef.current) {
       containerRef.current.scrollTop = 0;
     }
   }, [menus, currentPage]);
 
+  const toggleDescription = (index) => {
+    const updatedDescriptions = [...showFullDescriptions];
+    updatedDescriptions.fill(false); // Reset all descriptions to false
+    updatedDescriptions[index] = true; // Toggle the clicked description
+    setShowFullDescriptions(updatedDescriptions);
+  };
+
   return (
     <Box
-      ref={containerRef} // Assign the ref to the container element
+      ref={containerRef}
       sx={{
         display: "flex",
         flexWrap: "wrap",
@@ -37,57 +42,78 @@ const MenuCard = () => {
         overflowY: "scroll",
       }}
     >
-      {menus
-        .map((menu) => (
-          <Card
-            key={menu.name} // Used name as key
+      {menus.slice(firstItem, lastItem).map((menu, index) => (
+        <Card
+          key={menu.name}
+          sx={{
+            maxWidth: "350px",
+            display: "flex",
+            m: 2,
+            borderRadius: "10px",
+          }}
+        >
+          <CardContent
             sx={{
-              maxWidth: "350px",
-              display: "flex",
-              m: 2,
-              borderRadius: "10px",
+              marginBottom: "-75px",
+              "&:hover": {
+                background: "#9c96960f",
+              },
             }}
           >
-            <CardContent
+            <CardMedia
+              sx={{ minHeight: "300px", borderRadius: "20px" }}
+              component={"img"}
+              src={menu.image}
+              alt={menu.name}
+            />
+            <Box
               sx={{
-                marginBottom: "-75px",
-                "&:hover": {
-                  background: "#9c96960f",
-                },
+                textAlign: "center",
+                backgroundColor: "#c5ccc5c4",
+                padding: "15px",
+                position: "relative",
+                top: "-50px",
+                mx: "25px",
+                borderRadius: "30px",
               }}
             >
-              <CardMedia
-                sx={{ minHeight: "300px", borderRadius: "20px" }}
-                component={"img"}
-                src={menu.image}
-                alt={menu.name}
-              />
-              <Box
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#c5ccc5c4",
-                  padding: "15px",
-                  position: "relative",
-                  top: "-50px",
-                  mx: "25px",
-                  borderRadius: "30px",
-                }}
+              <Typography
+                variant="h5"
+                gutterBottom
+                component={"div"}
+                sx={{ fontFamily: "cursive" }}
               >
+                {menu.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  height: showFullDescriptions[index] ? "auto" : "200px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  position: "relative",
+                  marginBottom: showFullDescriptions[index] ? "0" : "15px",
+                  cursor: "pointer",
+                }}
+                onClick={() => toggleDescription(index)}
+              >
+                {menu.description}
+              </Typography>
+              {!showFullDescriptions[index] && (
                 <Typography
-                  variant="h5"
-                  gutterBottom
-                  component={"div"}
-                  sx={{ fontFamily: "cursive" }}
+                  variant="body2"
+                  color="primary"
+                  onClick={() => toggleDescription(index)}
+                  sx={{ cursor: "pointer" }}
                 >
-                  {menu.name}
+                  Show more
                 </Typography>
-                <Typography variant="body2">{menu.description}</Typography>
-              </Box>
-              <CardButtons item={menu} />
-            </CardContent>
-          </Card>
-        ))
-        .slice(firstItem, lastItem)}
+              )}
+            </Box>
+            <CardButtons item={menu} />
+          </CardContent>
+        </Card>
+      ))}
     </Box>
   );
 };
