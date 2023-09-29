@@ -1,0 +1,56 @@
+/* HomeStyles.css */
+.home {
+  position: relative;
+  /* Set the background image and its properties */
+  background-image: url("https://res.cloudinary.com/dduqxunnf/image/upload/v1690220780/resto/banner.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 76vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add a pseudo-element to create the blurred overlay on the left side */
+.home::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; /* Adjust this value to control the width of the blurred area */
+  height: 100%;
+  backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
+  z-index: -1;
+}
+
+.headerContainer {
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+p#typing {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #ff9800;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f57c00;
+}
+
+/* Add any other styles you need */
