@@ -73,10 +73,10 @@ const Signup = () => {
         // User registration was successful, show a success toast
         toast.success("User registered successfully");
 
-        // Redirect to the login page after 5 seconds
+        // Redirect to the login page after 3 seconds
         setTimeout(() => {
           window.location.href = "/login"; // Replace with your login page URL
-        }, 5000); // 5000 milliseconds = 5 seconds
+        }, 3000); // 3000 milliseconds = 3 seconds
       } else {
         // Handle errors from the server
         const errorData = await response.json();
