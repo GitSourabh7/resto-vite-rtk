@@ -28,7 +28,7 @@ const PaginationComp = () => {
     >
       <Pagination
         color="primary"
-        size="large"
+        size="medium"
         page={currentPage}
         count={totalPages}
         onChange={handlePageChange}
