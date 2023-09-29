@@ -141,19 +141,19 @@ const Contact = () => {
             If you&apos;re a restaurant owner interested in partnering with
             Resto, or if you have any business-related inquiries, please contact
             our restaurant partnership team:
-            <Typography sx={{ fontSize: "1.2rem" }}>
-              Email:
-              <Link
-                sx={{ textDecoration: "none" }}
-                href="mailto:partners@domain.com"
-              >
-                partners@domain.com
-              </Link>
-              , Phone:
-              <Link sx={{ textDecoration: "none" }} href="tel:+91 9876543210">
-                +91 9876543210
-              </Link>
-            </Typography>
+          </Typography>
+          <Typography sx={{ fontSize: "1.2rem" }}>
+            Email:{" "}
+            <Link
+              sx={{ textDecoration: "none" }}
+              href="mailto:partners@domain.com"
+            >
+              partners@domain.com
+            </Link>
+            , Phone:{" "}
+            <Link sx={{ textDecoration: "none" }} href="tel:+91 9876543210">
+              +91 9876543210
+            </Link>
           </Typography>
           <br />
           <Typography variant="h4"> Feedback and Suggestions: </Typography>
@@ -170,31 +170,25 @@ const Contact = () => {
           <Typography sx={{ fontSize: "1.2rem", marginTop: "-1rem" }}>
             If you&apos;re in the neighborhood, we&apos;d love to meet you in
             person. Here&apos;s our headquarters&apos;
-            <div>
-              <Typography
-                variant="h6"
-                sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-              >
-                Our Address
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ fontSize: "1.2rem", fontStyle: "italic" }}
-              >
-                123 Main Street,
-                <br />
-                Bangalore,
-                <br />
-                Karnataka, 560 560
-              </Typography>
-            </div>
           </Typography>
-          <br />
-          <Typography sx={{ fontSize: "1.2rem" }}>
-            Resto is dedicated to providing exceptional dining experiences, and
-            we&apos;re here to assist you in any way we can. Thank you for
-            choosing Resto, where global flavors meet your plate.
-          </Typography>
+          <div>
+            <Typography
+              variant="h6"
+              sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
+            >
+              Our Address
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: "1.2rem", fontStyle: "italic" }}
+            >
+              123 Main Street,
+              <br />
+              Bangalore,
+              <br />
+              Karnataka, 560 560
+            </Typography>
+          </div>
         </Box>
       </Box>
     </Layout>
