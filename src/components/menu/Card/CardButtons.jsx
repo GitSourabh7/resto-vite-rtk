@@ -103,7 +103,9 @@ const CardButtons = ({ item }) => {
         </Button>
         <Button
           sx={{
-            border: `2px solid ${isItemInCart ? "red" : "#1976d2"} !important`,
+            border: `2px solid ${
+              !isAuthenticated ? "#929292" : isItemInCart ? "red" : "#1976d2"
+            } !important`,
             borderRadius: "40px !important",
           }}
           onClick={handleToggleCart}
