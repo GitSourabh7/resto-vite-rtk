@@ -31,7 +31,7 @@ const Footer = () => {
           </Box>
 
           {/* Social Icons */}
-          <SocialIcons />
+          <SocialIcons sx={{ display: "flex", justifyContent: "center" }} />
         </Box>
         {/* Copyright */}
         <Typography
