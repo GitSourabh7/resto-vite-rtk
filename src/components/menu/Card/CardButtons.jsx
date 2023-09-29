@@ -98,13 +98,13 @@ const CardButtons = ({ item }) => {
           justifyContent: "space-around",
         }}
       >
-        <Button sx={{ border: "none !important", borderRadius: "999px" }}>
+        <Button sx={{ border: "none !important" }}>
           <ShareIcon fontSize="large" />
         </Button>
         <Button
           sx={{
             border: `2px solid ${isItemInCart ? "red" : "#1976d2"} !important`,
-            borderRadius: "999px", // Rounded shape
+            borderRadius: "40px !important",
           }}
           onClick={handleToggleCart}
           disabled={!isAuthenticated}
@@ -117,10 +117,7 @@ const CardButtons = ({ item }) => {
             sx={{ color: isItemInCart ? "red" : undefined }}
           />
         </Button>
-        <Button
-          sx={{ border: "none !important", borderRadius: "999px" }}
-          disabled={!isAuthenticated}
-        >
+        <Button disabled={!isAuthenticated}>
           <FavoriteIcon fontSize="large" />
         </Button>
       </ButtonGroup>
