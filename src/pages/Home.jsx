@@ -2,7 +2,6 @@ import "../styles/HomeStyles.css";
 import Layout from "../components/layout/Layout";
 import { Link } from "react-router-dom";
 import "../components/common/typewriter";
-// import "./HomeStyle.css";
 
 const Home = () => {
   return (
