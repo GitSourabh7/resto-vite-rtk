@@ -7,8 +7,8 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import {
   filterByCategory,
   selectSelectedCategory,
-} from "../../pages/menu/MenuSlice";
-import { setTotalPages, setCurrentPage } from "./Pagination/PaginationSlice";
+} from "../../features/menuSlice";
+import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
 import { store } from "../../store/store";
 
 const CategoryFilter = () => {

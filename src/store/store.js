@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import menuReducer from "../pages/menu/MenuSlice";
-import paginationReducer from "../components/menu/Pagination/PaginationSlice";
-import cartReducer from "../components/menu/Cart/CartSlice";
-import userReducer from "../components/common/userSlice";
+import menuReducer from "../features/menuSlice";
+import paginationReducer from "../features/paginationSlice";
+import cartReducer from "../features/cartSlice";
+import userReducer from "../features/userSlice";
 import logger from "redux-logger";
 
 const saveState = (state) => {

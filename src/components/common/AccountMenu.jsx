@@ -13,8 +13,8 @@ import Settings from "@mui/icons-material/Settings";
 import LoginIcon from "@mui/icons-material/Login";
 import Logout from "@mui/icons-material/Logout";
 import { Typography } from "@mui/material";
-import { clearCart } from "../menu/Cart/CartSlice";
-import { clearUser } from "../common/userSlice";
+import { clearCart } from "../../features/cartSlice";
+import { clearUser } from "../../features/userSlice";
 import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
 import "react-toastify/dist/ReactToastify.css"; // Import the Toastify CSS
 

@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { increaseQuantity, decreaseQuantity } from "./CartSlice";
+import {
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../../features/cartSlice";
 import axios from "axios";
 import { styled } from "@mui/system";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";

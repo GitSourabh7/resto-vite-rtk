@@ -1,6 +1,6 @@
 import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "./PaginationSlice";
+import { setCurrentPage } from "../../../features/paginationSlice";
 
 const PaginationComp = () => {
   const dispatch = useDispatch();

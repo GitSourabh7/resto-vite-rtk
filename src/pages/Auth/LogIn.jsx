@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, selectUser } from "../../components/common/userSlice";
+import { setUser, selectUser } from "../../features/userSlice";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button"; // Import Button from Material-UI
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setCartItems } from "../../components/menu/Cart/CartSlice";
+import { setCartItems } from "../../features/cartSlice";
 
 const defaultTheme = createTheme();
 

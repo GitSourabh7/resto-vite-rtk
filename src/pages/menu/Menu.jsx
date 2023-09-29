@@ -10,8 +10,8 @@ import CartButton from "../../components/menu/Cart/CartButton";
 import PaginationComp from "../../components/menu/Pagination/PaginationComp";
 
 // Slice Value
-import { setMenus } from "../menu/MenuSlice";
-import { setTotalPages } from "../../components/menu/Pagination/PaginationSlice";
+import { setMenus } from "../../features/menuSlice";
+import { setTotalPages } from "../../features/paginationSlice";
 import { store } from "../../store/store";
 
 //styles

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
-import { selectMenus } from "../../../pages/menu/MenuSlice";
+import { selectMenus } from "../../../features/menuSlice";
 import { store } from "../../../store/store";
 
 const MenuCard = () => {

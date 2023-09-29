@@ -4,8 +4,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart, selectCartItems } from "../Cart/CartSlice";
-import { selectUser } from "../../common/userSlice";
+import {
+  addToCart,
+  removeFromCart,
+  selectCartItems,
+} from "../../../features/cartSlice";
+import { selectUser } from "../../../features/userSlice";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
 

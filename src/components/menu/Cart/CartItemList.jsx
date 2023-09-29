@@ -5,7 +5,7 @@ import axios from "axios";
 import { Box, Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
-import { removeFromCart } from "./CartSlice";
+import { removeFromCart } from "../../../features/cartSlice";
 import QuantityInput from "./QuantityInput";
 
 import "@lottiefiles/lottie-player";
