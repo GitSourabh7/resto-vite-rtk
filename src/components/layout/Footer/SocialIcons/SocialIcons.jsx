@@ -16,7 +16,7 @@ const SocialIcons = () => {
   const githubUrl = "https://www.github.com/";
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box sx={{ m: 2, display: "flex", justifyContent: "center" }}>
       <Link href={facebookUrl} target="_blank" rel="noopener noreferrer">
         <IconButton id="iconbutton">
           <FacebookOutlinedIcon className="icon" fontSize="large" />
