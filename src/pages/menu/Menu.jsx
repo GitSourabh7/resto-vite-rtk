@@ -38,7 +38,7 @@ const Menu = () => {
 
   return (
     <Layout>
-      <Box sx={{ p: 2, display: "flex" }}>
+      <Box sx={{ p: 2, display: "flex", flexDirection: "column" }}>
         <Box
           sx={{
             display: "flex",
