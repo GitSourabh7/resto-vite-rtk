@@ -3,31 +3,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "./PaginationSlice";
 
 const PaginationComp = () => {
-  // Use useSelector to get the totalPages value from the Redux store
-  const totalPages = useSelector((state) => state.pagination.totalPages);
   const dispatch = useDispatch();
 
-  const page = useSelector((state) => state.pagination.currentPage);
+  // Get currentPage and totalPages from the Redux store
+  const currentPage = useSelector((state) => state.pagination.currentPage);
+  const totalPages = useSelector((state) => state.pagination.totalPages);
 
-  const handlePageChange = (event, page) => {
-    console.log("Handle Pagination");
-
-    // Dispatch the setPage action with the new page number
-    dispatch(setCurrentPage(page));
+  // Handle page change
+  const handlePageChange = (event, newPage) => {
+    // Dispatch the setCurrentPage action with the new page number
+    dispatch(setCurrentPage(newPage));
   };
 
   return (
-    <Pagination
-      color="primary"
-      sx={{
+    <div
+      style={{
         display: "flex",
         justifyContent: "center",
+        border: "2px solid #1976d2", // Customize the outer border color and style
+        borderRadius: "40px", // Add rounded corners if desired
+        padding: "8px", // Add some padding for spacing
+        marginTop: "10px",
       }}
-      size="large"
-      page={page}
-      count={totalPages}
-      onChange={handlePageChange}
-    />
+    >
+      <Pagination
+        color="primary"
+        size="large"
+        page={currentPage}
+        count={totalPages}
+        onChange={handlePageChange}
+      />
+    </div>
   );
 };
 

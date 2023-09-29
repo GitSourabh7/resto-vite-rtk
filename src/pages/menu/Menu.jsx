@@ -45,9 +45,7 @@ const Menu = () => {
         </Box>
         <Box className="menu-container ">
           <MenuCard />
-          <Box className="pagination-container">
-            <PaginationComp />
-          </Box>
+          <PaginationComp />
         </Box>
       </Box>
     </Layout>
