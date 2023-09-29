@@ -43,7 +43,7 @@ const CategoryFilter = () => {
     <ButtonGroup
       orientation="vertical"
       aria-label="vertical outlined button group"
-      sx={{ position: "fixed", mx: 2, my: 3 }}
+      // sx={{ position: "fixed", mx: 2, my: 3 }}
     >
       {categories.map((category) => (
         <Button

@@ -47,16 +47,14 @@ export default function CartButton() {
       <Badge
         badgeContent={cartItems ? cartItems.length : 0}
         color="primary"
-        sx={{ position: "fixed", my: 30, mx: "6rem", zIndex: 1 }}
+        sx={{ position: "fixed", mx: 10, my: 2, zIndex: 1 }}
       ></Badge>
       <Button
         variant="outlined"
         onClick={handleClickOpen}
         sx={{
-          position: "fixed",
-          my: 30,
-          mx: "1rem",
           borderRadius: "20px",
+          my: 2,
         }}
         // Disable the button if the user is not authenticated
         disabled={!authenticated}

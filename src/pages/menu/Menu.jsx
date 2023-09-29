@@ -38,10 +38,17 @@ const Menu = () => {
 
   return (
     <Layout>
-      <Box sx={{ p: 2 }}>
-        <Box>
-          <CategoryFilter />
+      <Box sx={{ p: 2, display: "flex" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            position: "fixed",
+          }}
+        >
           <CartButton />
+          <CategoryFilter />
         </Box>
         <Box className="menu-container ">
           <MenuCard />
