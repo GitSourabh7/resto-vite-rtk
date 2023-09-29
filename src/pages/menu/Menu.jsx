@@ -45,6 +45,7 @@ const Menu = () => {
             flexDirection: "column",
             alignItems: "center",
             position: "fixed",
+            m: 2,
           }}
         >
           <CartButton />
