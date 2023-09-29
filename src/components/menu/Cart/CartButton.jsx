@@ -47,7 +47,7 @@ export default function CartButton() {
       <Badge
         badgeContent={cartItems ? cartItems.length : 0}
         color="primary"
-        sx={{ position: "fixed", mx: 10, my: 2, zIndex: 1 }}
+        sx={{ position: "fixed", mx: 10, zIndex: 1 }}
       ></Badge>
       <Button
         variant="outlined"
