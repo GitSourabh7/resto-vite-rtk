@@ -16,15 +16,13 @@ const StyledInputRoot = styled("div")({
     theme.palette.mode === "dark" ? theme.grey[300] : theme.grey[500],
   display: "flex",
   flexFlow: "row nowrap",
-  justifyContent: "center",
   alignItems: "center",
 });
 
 const StyledInput = styled("input")({
-  fontSize: "0.875rem",
+  fontSize: "1rem", // Slightly larger font size for better visibility
   fontFamily: "inherit",
   fontWeight: 400,
-  lineHeight: 1.375,
   color: (theme) =>
     theme.palette.mode === "dark" ? theme.grey[300] : theme.grey[900],
   background: (theme) =>
@@ -33,12 +31,12 @@ const StyledInput = styled("input")({
     `1px solid ${
       theme.palette.mode === "dark" ? theme.grey[700] : theme.grey[200]
     }`,
-  borderRadius: "4px",
-  margin: "0 4px",
-  padding: "10px 12px",
+  borderRadius: "40px",
+  margin: "0 2px", // Increased margin for better spacing
+  padding: "6px 6px",
   outline: 0,
   minWidth: 0,
-  width: "4rem",
+  width: "3rem", // Slightly smaller width to fit better
   textAlign: "center",
   "&:hover": {
     borderColor: (theme) => theme.blue[400],
@@ -57,7 +55,7 @@ const StyledInput = styled("input")({
 
 const StyledButton = styled("button")({
   fontFamily: "IBM Plex Sans, sans-serif",
-  fontSize: "0.875rem",
+  fontSize: "0.875rem", // Smaller font size
   boxSizing: "border-box",
   lineHeight: 1.5,
   border: 0,
@@ -65,8 +63,8 @@ const StyledButton = styled("button")({
   color: (theme) =>
     theme.palette.mode === "dark" ? theme.blue[300] : theme.blue[600],
   background: "transparent",
-  width: "40px",
-  height: "40px",
+  width: "28px", // Smaller button size
+  height: "28px", // Smaller button size
   display: "flex",
   flexFlow: "row nowrap",
   justifyContent: "center",
