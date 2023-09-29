@@ -88,7 +88,7 @@ const MenuCard = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  height: showFullDescriptions[index] ? "auto" : "200px",
+                  height: showFullDescriptions[index] ? "auto" : "100px",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   position: "relative",
