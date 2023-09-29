@@ -36,7 +36,8 @@ export default function AccountMenu() {
   };
 
   const handleLogin = () => {
-    console.log("Clicked on Login");
+    // Redirect to the login page by changing the URL
+    window.location.href = "/login"; // Replace "/login" with the actual path to your login page
   };
 
   const handleLogout = () => {
