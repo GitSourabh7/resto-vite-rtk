@@ -73,7 +73,7 @@ const MenuCard = () => {
                 padding: "15px",
                 position: "relative",
                 top: "-50px",
-                mx: "25px",
+                mx: "10px",
                 borderRadius: "30px",
               }}
             >
