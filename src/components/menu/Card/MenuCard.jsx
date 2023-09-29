@@ -21,6 +21,9 @@ const MenuCard = () => {
     if (containerRef.current) {
       containerRef.current.scrollTop = 0;
     }
+
+    // Reset showFullDescriptions to all false when currentPage changes
+    setShowFullDescriptions(menus.map(() => false));
   }, [menus, currentPage]);
 
   const toggleDescription = (index) => {
