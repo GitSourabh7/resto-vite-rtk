@@ -55,6 +55,7 @@ export default function CartButton() {
         sx={{
           borderRadius: "20px",
           my: 2,
+          marginBottom: 4,
         }}
         // Disable the button if the user is not authenticated
         disabled={!authenticated}
