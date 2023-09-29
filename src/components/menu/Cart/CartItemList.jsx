@@ -85,77 +85,72 @@ const CartItemList = () => {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                bgcolor: "#00000022",
-                mx: "10px",
-                my: "1px",
+                backgroundColor: "#f0f0f0", // Use a lighter background color
+                padding: "10px",
                 borderRadius: "5px",
+                margin: "10px",
               }}
               key={menu.id}
             >
-              <Box
-                component="img"
-                sx={{
-                  m: 2,
-                  borderRadius: "10px",
-                  height: 120,
-                  width: 180,
-                }}
-                alt={menu.name}
+              <img
                 src={menu.image}
-              />
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  margin: "10px",
-                  width: "-webkit-fill-available",
+                alt={menu.name}
+                style={{
+                  marginRight: "20px", // Add some spacing between the image and content
+                  borderRadius: "10px",
+                  height: "100px",
+                  width: "160px",
                 }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center" }}>
+              />
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
                   <Typography
-                    sx={{
-                      fontSize: "1.2em",
+                    variant="h5"
+                    style={{
                       fontWeight: "400",
-                      minWidth: "200px",
+                      flex: 1,
                     }}
                   >
                     {menu.name}
                   </Typography>
-                  <QuantityInput sx={{ maxWidth: "80px" }} menu={menu} />
-                </Box>
-                <Box
-                  sx={{
+                  <QuantityInput menu={menu} />
+                </div>
+                <div
+                  style={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-around",
-                    mx: 2,
-                    minWidth: "300px",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
                   }}
                 >
                   <Typography
-                    sx={{
+                    style={{
                       fontSize: "1em",
-                      fontWeight: "400",
                       fontStyle: "italic",
                     }}
                   >
                     ₹ {menu.price}/dish
                   </Typography>
-                  <Box sx={{ ml: "5", fontSize: "1.2em", fontWeight: "400" }}>
+                  <div style={{ fontSize: "1.2em", fontWeight: "400" }}>
                     ₹ {totalPrice}
-                  </Box>
+                  </div>
                   <Button
                     variant="outlined"
-                    startIcon={<Delete />}
-                    color="error"
+                    color="secondary"
                     size="small"
+                    startIcon={<Delete />}
                     onClick={() => handleRemove(menu)}
                   >
                     Remove
                   </Button>
-                </Box>
-              </Box>
+                </div>
+              </div>
             </Box>
           );
         })
