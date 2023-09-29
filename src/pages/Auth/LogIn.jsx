@@ -73,7 +73,11 @@ export default function LogIn() {
         // Dispatch the cart data to set cart items in the Redux store
         dispatch(setCartItems(cartData));
 
-        // Handle the cart data as needed
+        // Redirect to the menu page after 3 seconds
+        setTimeout(() => {
+          // Redirect to the menu page by changing the URL
+          window.location.href = "/menu";
+        }, 3000); // 3000 milliseconds (3 seconds)
       } else {
         showToast(`Login failed: ${data.message}`, "error");
         console.error("Login failed:", data.message);
