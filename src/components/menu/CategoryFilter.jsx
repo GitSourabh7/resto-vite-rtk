@@ -10,6 +10,7 @@ import {
 } from "../../features/menuSlice";
 import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
 import { store } from "../../store/store";
+import { motion } from "framer-motion";
 
 const CategoryFilter = () => {
   const selectedCategory = useSelector(selectSelectedCategory);
@@ -54,7 +55,12 @@ const CategoryFilter = () => {
           }
           onClick={() => handleCategoryClick(category)}
         >
-          {category}
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            {category}
+          </motion.div>
         </Button>
       ))}
     </ButtonGroup>
