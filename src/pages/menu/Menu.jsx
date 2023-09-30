@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 //Mui
 import { Box } from "@mui/material";
@@ -48,7 +49,13 @@ const Menu = () => {
             m: 2,
           }}
         >
-          <CartButton />
+          {" "}
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            <CartButton />
+          </motion.div>
           <CategoryFilter />
         </Box>
         <Box className="menu-container ">
