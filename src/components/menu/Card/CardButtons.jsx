@@ -12,6 +12,7 @@ import {
 import { selectUser } from "../../../features/userSlice";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
+import { motion } from "framer-motion";
 
 import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
 
@@ -102,30 +103,45 @@ const CardButtons = ({ item }) => {
           justifyContent: "space-around",
         }}
       >
-        <Button sx={{ border: "none !important" }}>
-          <ShareIcon fontSize="large" />
-        </Button>
-        <Button
-          sx={{
-            border: `2px solid ${
-              !isAuthenticated ? "#929292" : isItemInCart ? "red" : "#1976d2"
-            } !important`,
-            borderRadius: "40px !important",
-          }}
-          onClick={handleToggleCart}
-          disabled={!isAuthenticated}
+        <motion.div
+          whileHover={{ scale: 1.05 }} // Scale up on hover
+          whileTap={{ scale: 0.95 }} // Scale down on click
         >
-          <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
-            {isItemInCart ? "Remove" : "Add To Cart"}
-          </Typography>
-          <ShoppingCartIcon
-            fontSize="large"
-            sx={{ color: isItemInCart ? "red" : undefined }}
-          />
-        </Button>
-        <Button disabled={!isAuthenticated}>
-          <FavoriteIcon fontSize="large" />
-        </Button>
+          <Button sx={{ border: "none !important" }}>
+            <ShareIcon fontSize="large" />
+          </Button>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }} // Scale up on hover
+          whileTap={{ scale: 0.95 }} // Scale down on click
+        >
+          <Button
+            sx={{
+              border: `2px solid ${
+                !isAuthenticated ? "#929292" : isItemInCart ? "red" : "#1976d2"
+              } !important`,
+              borderRadius: "40px !important",
+            }}
+            onClick={handleToggleCart}
+            disabled={!isAuthenticated}
+          >
+            <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
+              {isItemInCart ? "Remove" : "Add To Cart"}
+            </Typography>
+            <ShoppingCartIcon
+              fontSize="large"
+              sx={{ color: isItemInCart ? "red" : undefined }}
+            />
+          </Button>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.05 }} // Scale up on hover
+          whileTap={{ scale: 0.95 }} // Scale down on click
+        >
+          <Button disabled={!isAuthenticated}>
+            <FavoriteIcon fontSize="large" />
+          </Button>
+        </motion.div>
       </ButtonGroup>
       <ToastContainer />
     </>
