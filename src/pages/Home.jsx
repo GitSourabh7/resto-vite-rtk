@@ -3,6 +3,7 @@ import "../styles/HomeStyles.css";
 import Layout from "../components/layout/Layout";
 import { Link } from "react-router-dom";
 import Typewriter from "typewriter-effect/dist/core";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [typingText] = useState("");
@@ -40,7 +41,12 @@ const Home = () => {
           <h1>Resto</h1>
           <p id="typing">{typingText}</p>
           <Link to="/menu">
-            <button>Order Now</button>
+            <motion.div
+              whileHover={{ scale: 1.1 }} // Scale up on hover
+              whileTap={{ scale: 0.9 }} // Scale down on click
+            >
+              <button>Order Now</button>
+            </motion.div>
           </Link>
         </div>
       </div>
