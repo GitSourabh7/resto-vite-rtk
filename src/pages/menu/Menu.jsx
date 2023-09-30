@@ -15,9 +15,6 @@ import { setMenus } from "../../features/menuSlice";
 import { setTotalPages } from "../../features/paginationSlice";
 import { store } from "../../store/store";
 
-//styles
-import "../menu/MenuStyle.css";
-
 const Menu = () => {
   const dispatch = useDispatch();
 
@@ -39,14 +36,18 @@ const Menu = () => {
 
   return (
     <Layout>
-      <Box>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "minmax(130px, 130px) 85%",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            position: "fixed",
-            m: 2,
+            my: 2,
           }}
         >
           {" "}
@@ -58,7 +59,13 @@ const Menu = () => {
           </motion.div>
           <CategoryFilter />
         </Box>
-        <Box className="menu-container ">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <MenuCard />
           <PaginationComp />
         </Box>

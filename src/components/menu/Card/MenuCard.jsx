@@ -41,7 +41,6 @@ const MenuCard = () => {
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
-        paddingLeft: "100px",
         height: "490px",
         overflowY: "scroll",
       }}
