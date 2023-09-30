@@ -1,6 +1,8 @@
-import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
 import { setCurrentPage } from "../../../features/paginationSlice";
+import { motion } from "framer-motion";
 
 const PaginationComp = () => {
   const dispatch = useDispatch();
@@ -20,9 +22,9 @@ const PaginationComp = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        border: "2px solid #1976d2", // Customize the outer border color and style
-        borderRadius: "40px", // Add rounded corners if desired
-        padding: "8px", // Add some padding for spacing
+        border: "2px solid #1976d2",
+        borderRadius: "40px",
+        padding: "8px",
         margin: "10px",
       }}
     >
@@ -32,6 +34,14 @@ const PaginationComp = () => {
         page={currentPage}
         count={totalPages}
         onChange={handlePageChange}
+        renderItem={(item) => (
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Apply scale animation on hover
+            key={item.page}
+          >
+            <PaginationItem {...item} />
+          </motion.div>
+        )}
       />
     </div>
   );
