@@ -73,7 +73,6 @@ h1 {
 }
 
 /* Add text shadow to h1 and p elements */
-.home .headerContainer h1,
 .home .headerContainer p {
   text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5); /* Adjust the shadow values as needed */
 }

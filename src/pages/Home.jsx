@@ -4,6 +4,7 @@ import Layout from "../components/layout/Layout";
 import { Link } from "react-router-dom";
 import Typewriter from "typewriter-effect/dist/core";
 import { motion } from "framer-motion";
+import GradientLogo from "../components/common/GradientLogo";
 
 const Home = () => {
   const [typingText] = useState("");
@@ -38,7 +39,7 @@ const Home = () => {
     <Layout>
       <div className="home">
         <div className="headerContainer">
-          <h1>Resto</h1>
+          <GradientLogo />
           <p id="typing">{typingText}</p>
           <Link to="/menu">
             <motion.div
