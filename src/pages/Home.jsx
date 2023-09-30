@@ -42,12 +42,12 @@ const Home = () => {
           <GradientLogo />
           <p id="typing">{typingText}</p>
           <Link to="/menu">
-            <motion.div
+            <motion.button
               whileHover={{ scale: 1.1 }} // Scale up on hover
               whileTap={{ scale: 0.9 }} // Scale down on click
             >
-              <button>Order Now</button>
-            </motion.div>
+              Order Now
+            </motion.button>
           </Link>
         </div>
       </div>
