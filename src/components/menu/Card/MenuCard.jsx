@@ -4,6 +4,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import CardButtons from "./CardButtons";
 import { selectMenus } from "../../../features/menuSlice";
 import { store } from "../../../store/store";
+import { motion } from "framer-motion";
 
 const MenuCard = () => {
   const menus = useSelector(selectMenus);
@@ -46,76 +47,81 @@ const MenuCard = () => {
       }}
     >
       {menus.slice(firstItem, lastItem).map((menu, index) => (
-        <Card
+        <motion.div
+          whileHover={{ scale: 1.02 }} // Scale up on hover
           key={menu.name}
-          sx={{
-            maxWidth: "350px",
-            display: "flex",
-            m: 2,
-            borderRadius: "10px",
-          }}
         >
-          <CardContent
+          <Card
+            key={menu.name}
             sx={{
-              marginBottom: "-75px",
-              "&:hover": {
-                background: "#9c96960f",
-              },
+              maxWidth: "330px",
+              display: "flex",
+              m: 2,
+              borderRadius: "10px",
             }}
           >
-            <CardMedia
-              sx={{ minHeight: "300px", borderRadius: "20px" }}
-              component={"img"}
-              src={menu.image}
-              alt={menu.name}
-            />
-            <Box
+            <CardContent
               sx={{
-                textAlign: "center",
-                backgroundColor: "#c5ccc5c4",
-                padding: "15px",
-                position: "relative",
-                top: "-50px",
-                mx: "10px",
-                borderRadius: "30px",
+                marginBottom: "-75px",
+                "&:hover": {
+                  background: "#9c96960f",
+                },
               }}
             >
-              <Typography
-                variant="h5"
-                gutterBottom
-                component={"div"}
-                sx={{ fontFamily: "cursive" }}
-              >
-                {menu.name}
-              </Typography>
-              <Typography
-                variant="body2"
+              <CardMedia
+                sx={{ minHeight: "300px", borderRadius: "20px" }}
+                component={"img"}
+                src={menu.image}
+                alt={menu.name}
+              />
+              <Box
                 sx={{
-                  height: showFullDescriptions[index] ? "auto" : "100px",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
+                  textAlign: "center",
+                  backgroundColor: "#c5ccc5c4",
+                  padding: "15px",
                   position: "relative",
-                  marginBottom: showFullDescriptions[index] ? "0" : "15px",
-                  cursor: "pointer",
+                  top: "-50px",
+                  mx: "10px",
+                  borderRadius: "30px",
                 }}
-                onClick={() => toggleDescription(index)}
               >
-                {menu.description}
-              </Typography>
-              {!showFullDescriptions[index] && (
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  component={"div"}
+                  sx={{ fontFamily: "cursive" }}
+                >
+                  {menu.name}
+                </Typography>
                 <Typography
                   variant="body2"
-                  color="primary"
+                  sx={{
+                    height: showFullDescriptions[index] ? "auto" : "100px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    position: "relative",
+                    marginBottom: showFullDescriptions[index] ? "0" : "15px",
+                    cursor: "pointer",
+                  }}
                   onClick={() => toggleDescription(index)}
-                  sx={{ cursor: "pointer" }}
                 >
-                  Show more
+                  {menu.description}
                 </Typography>
-              )}
-            </Box>
-            <CardButtons item={menu} />
-          </CardContent>
-        </Card>
+                {!showFullDescriptions[index] && (
+                  <Typography
+                    variant="body2"
+                    color="primary"
+                    onClick={() => toggleDescription(index)}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    Show more
+                  </Typography>
+                )}
+              </Box>
+              <CardButtons item={menu} />
+            </CardContent>
+          </Card>
+        </motion.div>
       ))}
     </Box>
   );
