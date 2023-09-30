@@ -11,6 +11,7 @@ import QuantityInput from "./QuantityInput";
 import "@lottiefiles/lottie-player";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+import { motion } from "framer-motion";
 
 const CartItemList = () => {
   const dispatch = useDispatch();
@@ -81,77 +82,88 @@ const CartItemList = () => {
           const totalPrice = menu.price * menu.quantity; // Calculate the total price
 
           return (
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                backgroundColor: "#f0f0f0", // Use a lighter background color
-                padding: "10px",
-                borderRadius: "5px",
-                margin: "10px",
-              }}
+            <motion.div
               key={menu.id}
+              whileHover={{ scale: 1.02 }} // Scale up on hover
+              whileTap={{ scale: 0.98 }} // Scale down on click
             >
-              <img
-                src={menu.image}
-                alt={menu.name}
-                style={{
-                  marginRight: "20px", // Add some spacing between the image and content
-                  borderRadius: "10px",
-                  height: "100px",
-                  width: "160px",
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  backgroundColor: "#f0f0f0", // Use a lighter background color
+                  padding: "10px",
+                  borderRadius: "5px",
+                  margin: "10px",
                 }}
-              />
-              <div style={{ flex: 1 }}>
-                <div
+                key={menu.id}
+              >
+                <img
+                  src={menu.image}
+                  alt={menu.name}
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
+                    marginRight: "20px", // Add some spacing between the image and content
+                    borderRadius: "10px",
+                    height: "100px",
+                    width: "160px",
                   }}
-                >
-                  <Typography
-                    variant="h5"
+                />
+                <div style={{ flex: 1 }}>
+                  <div
                     style={{
-                      fontWeight: "400",
-                      flex: 1,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    {menu.name}
-                  </Typography>
-                  <QuantityInput menu={menu} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: "10px",
-                  }}
-                >
-                  <Typography
-                    style={{
-                      fontSize: "1em",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    ₹ {menu.price}/dish
-                  </Typography>
-                  <div style={{ fontSize: "1.2em", fontWeight: "400" }}>
-                    ₹ {totalPrice}
+                    <Typography
+                      variant="h5"
+                      style={{
+                        fontWeight: "400",
+                        flex: 1,
+                      }}
+                    >
+                      {menu.name}
+                    </Typography>
+                    <QuantityInput menu={menu} />
                   </div>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    size="small"
-                    startIcon={<Delete />}
-                    onClick={() => handleRemove(menu)}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      marginTop: "10px",
+                    }}
                   >
-                    Remove
-                  </Button>
+                    <Typography
+                      style={{
+                        fontSize: "1em",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      ₹ {menu.price}/dish
+                    </Typography>
+                    <div style={{ fontSize: "1.2em", fontWeight: "400" }}>
+                      ₹ {totalPrice}
+                    </div>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }} // Scale up on hover
+                      whileTap={{ scale: 0.95 }} // Scale down on click
+                    >
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        size="small"
+                        startIcon={<Delete />}
+                        onClick={() => handleRemove(menu)}
+                      >
+                        Remove
+                      </Button>
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
-            </Box>
+              </Box>
+            </motion.div>
           );
         })
       ) : (
