@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/logo.svg";
 import "./HeaderStyle.css";
 import AccountMenu from "../../common/AccountMenu";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -39,18 +40,38 @@ const Header = () => {
 
       <ul className="mobile-navigation">
         <li>
-          <NavLink activeclassname="active" to={"/"}>
-            Home
-          </NavLink>
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            <NavLink activeclassname="active" to={"/"}>
+              Home
+            </NavLink>
+          </motion.div>
         </li>
         <li>
-          <NavLink to={"/menu"}>Menu</NavLink>
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            <NavLink to={"/menu"}>Menu</NavLink>
+          </motion.div>
         </li>
         <li>
-          <NavLink to={"/about"}>About</NavLink>
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            <NavLink to={"/about"}>About</NavLink>
+          </motion.div>
         </li>
         <li>
-          <NavLink to={"/contact"}>Contact</NavLink>
+          <motion.div
+            whileHover={{ scale: 1.1 }} // Scale up on hover
+            whileTap={{ scale: 0.9 }} // Scale down on click
+          >
+            <NavLink to={"/contact"}>Contact</NavLink>
+          </motion.div>
         </li>
       </ul>
     </Box>
@@ -83,18 +104,38 @@ const Header = () => {
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul className="navigation-menu">
                 <li>
-                  <NavLink activeclassname="active" to={"/"}>
-                    Home
-                  </NavLink>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} // Scale up on hover
+                    whileTap={{ scale: 0.9 }} // Scale down on click
+                  >
+                    <NavLink activeclassname="active" to={"/"}>
+                      Home
+                    </NavLink>
+                  </motion.div>
                 </li>
                 <li>
-                  <NavLink to={"/menu"}>Menu</NavLink>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} // Scale up on hover
+                    whileTap={{ scale: 0.9 }} // Scale down on click
+                  >
+                    <NavLink to={"/menu"}>Menu</NavLink>
+                  </motion.div>
                 </li>
                 <li>
-                  <NavLink to={"/about"}>About</NavLink>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} // Scale up on hover
+                    whileTap={{ scale: 0.9 }} // Scale down on click
+                  >
+                    <NavLink to={"/about"}>About</NavLink>
+                  </motion.div>
                 </li>
                 <li>
-                  <NavLink to={"/contact"}>Contact</NavLink>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }} // Scale up on hover
+                    whileTap={{ scale: 0.9 }} // Scale down on click
+                  >
+                    <NavLink to={"/contact"}>Contact</NavLink>
+                  </motion.div>
                 </li>
               </ul>
             </Box>
