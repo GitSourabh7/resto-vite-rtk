@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-
+import { motion } from "framer-motion";
 import {
   filterByCategory,
   selectSelectedCategory,
 } from "../../features/menuSlice";
 import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
 import { store } from "../../store/store";
-import { motion } from "framer-motion";
 
 const CategoryFilter = () => {
   const selectedCategory = useSelector(selectSelectedCategory);
@@ -19,12 +17,15 @@ const CategoryFilter = () => {
   const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  fetch("http://localhost:3000/category")
-    .then((response) => response.json())
-    .then((data) => {
-      setCategories(data);
-      setIsLoading(false);
-    });
+  useEffect(() => {
+    // Fetch categories when the component mounts
+    fetch("http://localhost:3000/category")
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data);
+        setIsLoading(false);
+      });
+  }, []); // Empty dependency array to run the effect only once
 
   // Function to handle button clicks and set the active button
   const handleCategoryClick = (category) => {
@@ -44,7 +45,6 @@ const CategoryFilter = () => {
     <ButtonGroup
       orientation="vertical"
       aria-label="vertical outlined button group"
-      // sx={{ position: "fixed", mx: 2, my: 3 }}
     >
       {categories.map((category) => (
         <Button
