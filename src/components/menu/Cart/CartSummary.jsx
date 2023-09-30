@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Typography, Button } from "@mui/material";
+import { motion } from "framer-motion";
 
 const CartSummary = ({ cartItems }) => {
   if (cartItems.length === 0) {
@@ -52,9 +53,18 @@ const CartSummary = ({ cartItems }) => {
         <Typography>Subtotal</Typography>
         <Typography>₹ {subTotal}</Typography>
       </Box>
-      <Button variant="contained" sx={{ mt: 3 }}>
-        Checkout
-      </Button>
+      <motion.div
+        whileHover={{ scale: 1.05 }} // Scale up on hover
+        whileTap={{ scale: 0.95 }} // Scale down on click
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Button variant="contained" sx={{ mt: 3, width: "80%" }}>
+          Checkout
+        </Button>
+      </motion.div>
     </Box>
   );
 };
