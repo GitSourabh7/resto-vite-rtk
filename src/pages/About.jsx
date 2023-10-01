@@ -6,7 +6,7 @@ const About = () => {
     <Layout>
       <Box
         sx={{
-          my: 5,
+          my: 2,
           mx: "5%",
           textAlign: "center",
           p: 2,
@@ -50,6 +50,32 @@ const About = () => {
           to enjoy a great meal, no matter their budget. That&apos;s why we
           offer our food at a fraction of the cost of other restaurants in our
           area.
+        </Typography>
+        <br />
+        <Typography sx={{ fontSize: "1.5rem", fontWeight: "800" }}>
+          Our Story :
+        </Typography>
+        <Typography sx={{ fontSize: "1.2rem" }}>
+          Resto was founded in 2023 by two friends, John and Sam, who shared a
+          passion for food and travel. They had always dreamed of opening a
+          restaurant that would bring people together to enjoy delicious food
+          from all over the world. After years of planning and preparation,
+          Resto finally opened its doors in Banglaore, Karnataka. The restaurant
+          quickly became a popular spot for locals and tourists alike, thanks to
+          its diverse menu, fresh ingredients, and friendly service. Resto is
+          committed to providing its guests with a delicious, affordable, and
+          accessible dining experience. The restaurant uses fresh, local, and
+          global ingredients in its dishes, and it offers a wide variety of
+          options to choose from, including vegetarian, vegan, and gluten-free
+          options. The team at Resto is made up of passionate and experienced
+          chefs and servers who are dedicated to providing guests with the best
+          possible dining experience. The team is also diverse and inclusive,
+          and it celebrates the unique cultures and perspectives of its staff.
+          Resto is more than just a restaurant. It is a place where people can
+          come together to enjoy delicious food, learn about different cultures,
+          and make new memories. The team at Resto is grateful for the support
+          of its guests, and they look forward to continuing to serve the
+          community for many years to come.
         </Typography>
         <br />
         <Typography sx={{ fontSize: "1.5rem", fontWeight: "800" }}>
