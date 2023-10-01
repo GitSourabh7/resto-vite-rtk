@@ -42,22 +42,25 @@ const Menu = () => {
           gridTemplateColumns: "minmax(130px, 130px) 85%",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            my: 2,
-          }}
-        >
-          {" "}
-          <motion.div
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on click
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              m: 2,
+              position: "fixed",
+            }}
           >
-            <CartButton />
-          </motion.div>
-          <CategoryFilter />
+            {" "}
+            <motion.div
+              whileHover={{ scale: 1.1 }} // Scale up on hover
+              whileTap={{ scale: 0.9 }} // Scale down on click
+            >
+              <CartButton />
+            </motion.div>
+            <CategoryFilter />
+          </Box>
         </Box>
         <Box
           sx={{
