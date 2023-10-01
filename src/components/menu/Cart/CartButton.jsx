@@ -1,11 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-
-// Components
+import styled from "styled-components";
 import {
   AppBar,
-  Badge,
   Box,
+  Badge,
   Button,
   Dialog,
   IconButton,
@@ -13,14 +12,11 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-
-// Icons
 import {
   Close as CloseIcon,
   ShoppingCart as ShoppingCartIcon,
 } from "@mui/icons-material";
 
-// Components
 import CartSummary from "./CartSummary";
 import CartHeader from "./CartHeader";
 import CartItemList from "./CartItemList";
@@ -29,8 +25,37 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function CartButton() {
-  const [open, setOpen] = React.useState(false);
+const CartButtonContainer = styled.div`
+  position: relative;
+`;
+
+const CartBadge = styled(Badge)`
+  margin: 20px 10px;
+  z-index: 1;
+`;
+
+const StyledButton = styled(Button)`
+  border-radius: 20px !important;
+  margin: 3px;
+`;
+
+const AppBarContainer = styled(AppBar)`
+  position: relative;
+`;
+
+const BoxContainer = styled(Box)`
+  display: flex;
+  flex-direction: row;
+`;
+
+const LeftBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`;
+
+function CartButton() {
+  const [open, setOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
   const authenticated = useSelector((state) => !!state.user.id); // Check if the user is authenticated
 
@@ -43,34 +68,29 @@ export default function CartButton() {
   };
 
   return (
-    <div>
-      <Badge
+    <CartButtonContainer>
+      <CartBadge
         badgeContent={cartItems ? cartItems.length : 0}
         color="primary"
-        sx={{ position: "fixed", mx: 10, zIndex: 1 }}
-      ></Badge>
-      <Button
-        variant="outlined"
-        onClick={handleClickOpen}
-        sx={{
-          borderRadius: "20px",
-          marginBottom: 4,
-        }}
-        // Disable the button if the user is not authenticated
-        disabled={!authenticated}
       >
-        <ShoppingCartIcon />
-        Cart
-      </Button>
+        <StyledButton
+          variant="outlined"
+          onClick={handleClickOpen}
+          disabled={!authenticated}
+        >
+          <ShoppingCartIcon />
+          Cart
+        </StyledButton>
+      </CartBadge>
       <Dialog
         fullScreen
         open={open}
         onClose={handleClose}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: "relative" }}>
+        <AppBarContainer position="relative">
           <Toolbar>
-            <Typography sx={{ flex: 1 }} variant="h6" component="div">
+            <Typography variant="h6" component="div" sx={{ flex: 1 }}>
               Shopping Cart
             </Typography>
             <IconButton
@@ -82,15 +102,17 @@ export default function CartButton() {
               <CloseIcon />
             </IconButton>
           </Toolbar>
-        </AppBar>
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <Box sx={{ display: "flex", flexDirection: "column", width: "80%" }}>
+        </AppBarContainer>
+        <BoxContainer>
+          <LeftBox>
             <CartHeader count={cartItems.length} />
             <CartItemList cartItems={cartItems} />
-          </Box>
+          </LeftBox>
           <CartSummary cartItems={cartItems} />
-        </Box>
+        </BoxContainer>
       </Dialog>
-    </div>
+    </CartButtonContainer>
   );
 }
+
+export default CartButton;
