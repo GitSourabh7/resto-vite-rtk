@@ -85,7 +85,7 @@ const CartItemList = () => {
             <motion.div
               key={menu.id}
               whileHover={{ scale: 1.02 }} // Scale up on hover
-              whileTap={{ scale: 0.98 }} // Scale down on click
+              // whileTap={{ scale: 0.98 }} // Scale down on click
             >
               <Box
                 sx={{
