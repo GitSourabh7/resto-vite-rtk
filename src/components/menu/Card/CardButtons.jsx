@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { Button, ButtonGroup, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -15,6 +16,53 @@ import { toast, ToastContainer } from "react-toastify"; // Import toast function
 import { motion } from "framer-motion";
 
 import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+
+// Import color variables from your theme.js file
+import { colors } from "../../../styles/theme.styled";
+
+const StyledButtonGroup = styled(ButtonGroup)`
+  top: -50px;
+  position: relative;
+  padding: 10px;
+  display: flex !important;
+  justify-content: space-evenly !important;
+`;
+
+const ShareButton = styled(Button)`
+  border: none !important;
+`;
+
+const CartButton = styled(Button)`
+  border: ${(props) =>
+    `2px solid ${
+      props.isCartButtonDisabled
+        ? colors.disabledColor
+        : props.isItemInCart
+        ? colors.secondaryColor
+        : colors.primaryColor
+    } !important`};
+  border-radius: 40px !important;
+`;
+
+// Styled Typography component
+const StyledTypography = styled(Typography)`
+  color: ${(props) =>
+    props.isCartButtonDisabled
+      ? colors.disabledColor
+      : props.isItemInCart
+      ? colors.secondaryColor
+      : colors.primaryColor} !important;
+`;
+
+// Styled component for ShoppingCartIcon
+const CustomShoppingCartIcon = styled(ShoppingCartIcon)`
+  color: ${(props) =>
+    props.isItemInCart
+      ? colors.secondaryColor
+      : props.isCartButtonDisabled
+      ? colors.disabledColor
+      : colors.primaryColor};
+`;
 
 const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
@@ -92,64 +140,44 @@ const CardButtons = ({ item }) => {
 
   return (
     <>
-      <ButtonGroup
-        variant="text"
-        aria-label="text button group"
-        sx={{
-          top: "-50px",
-          position: "relative",
-          padding: "10px",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <motion.div
-          whileHover={{ scale: 1.05 }} // Scale up on hover
-          whileTap={{ scale: 0.95 }} // Scale down on click
-        >
-          <Button sx={{ border: "none !important" }}>
+      <StyledButtonGroup variant="text" aria-label="button group">
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <ShareButton>
             <ShareIcon fontSize="large" />
-          </Button>
+          </ShareButton>
         </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.05 }} // Scale up on hover
-          whileTap={{ scale: 0.95 }} // Scale down on click
-        >
-          <Button
-            sx={{
-              border: `2px solid ${
-                !isAuthenticated ? "#929292" : isItemInCart ? "red" : "#1976d2"
-              } !important`,
-              borderRadius: "40px !important",
-            }}
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <CartButton
+            isItemInCart={isItemInCart}
+            isCartButtonDisabled={!isAuthenticated}
             onClick={handleToggleCart}
-            disabled={!isAuthenticated}
           >
-            <Typography sx={{ mx: 1, color: isItemInCart ? "red" : undefined }}>
+            <StyledTypography
+              isCartButtonDisabled={!isAuthenticated}
+              isItemInCart={isItemInCart}
+            >
               {isItemInCart ? "Remove" : "Add To Cart"}
-            </Typography>
-            <ShoppingCartIcon
+            </StyledTypography>
+            <CustomShoppingCartIcon
+              isCartButtonDisabled={!isAuthenticated}
+              isItemInCart={isItemInCart}
               fontSize="large"
-              sx={{ color: isItemInCart ? "red" : undefined }}
             />
-          </Button>
+          </CartButton>
         </motion.div>
-        <motion.div
-          whileHover={{ scale: 1.05 }} // Scale up on hover
-          whileTap={{ scale: 0.95 }} // Scale down on click
-        >
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button disabled={!isAuthenticated}>
             <FavoriteIcon fontSize="large" />
           </Button>
         </motion.div>
-      </ButtonGroup>
+      </StyledButtonGroup>
       <ToastContainer />
     </>
   );
 };
 
 CardButtons.propTypes = {
-  item: PropTypes.object.isRequired, // Ensure 'item' prop is an object and is required
+  item: PropTypes.object.isRequired,
 };
 
 export default CardButtons;
