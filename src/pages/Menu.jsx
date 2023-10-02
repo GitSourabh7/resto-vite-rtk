@@ -9,7 +9,7 @@ import Layout from "../components/layout/Layout";
 import CategoryFilter from "../components/menu/CategoryFilter";
 import MenuCard from "../components/menu/Card/MenuCard";
 import CartButton from "../components/menu/Cart/CartButton";
-import PaginationComp from "../components/menu/Pagination/PaginationComp";
+import PaginationComp from "../components/menu/PaginationComp";
 
 // Slice Value
 import { setMenus } from "../features/menuSlice";

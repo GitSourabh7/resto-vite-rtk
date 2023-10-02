@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
-import { setCurrentPage } from "../../../features/paginationSlice";
+import { setCurrentPage } from "../../features/paginationSlice";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { colors } from "../../../styles/theme.styled";
+import { colors } from "../../styles/theme.styled";
 
 // Styled components
 const PaginationWrapper = styled.div`
