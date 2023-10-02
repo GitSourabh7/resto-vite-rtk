@@ -4,46 +4,26 @@ import styled from "styled-components";
 // Styled components
 const AboutContainer = styled.div`
   margin: 2% 5%;
-  text-align: center;
-
-  @media (max-width: 600px) {
-    margin-top: 0;
-  }
+  text-align: left;
 `;
 
 const Heading = styled.h4`
   font-weight: bold;
-  margin: 2% 0;
+  margin: 2rem 0;
   font-size: 2rem;
+  text-align: center;
+`;
 
-  @media (max-width: 600px) {
-    font-size: 1.5rem;
-  }
+const SubHeading = styled.h2`
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 1rem 0 0.5rem 0;
 `;
 
 const Text = styled.p`
   font-size: 1.2rem;
   text-align: justify;
-  margin: 2% 0;
-
-  @media (max-width: 600px) {
-    font-size: 1rem;
-  }
-`;
-
-const MissionHeading = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 800;
-`;
-
-const StoryHeading = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 800;
-`;
-
-const TeamHeading = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 800;
+  margin: 1rem 0;
 `;
 
 const About = () => {
@@ -63,7 +43,7 @@ const About = () => {
           let us show you what we&apos;re all about!
         </Text>
 
-        <MissionHeading>Our Mission :</MissionHeading>
+        <SubHeading>Our Mission :</SubHeading>
         <Text>
           Our mission is to provide our guests with a delicious and affordable
           dining experience around the world. We believe that everyone deserves
@@ -72,7 +52,7 @@ const About = () => {
           area.
         </Text>
 
-        <StoryHeading>Our Story :</StoryHeading>
+        <SubHeading>Our Story :</SubHeading>
         <Text>
           Resto was founded in 2023 by two friends, John and Sam, who shared a
           passion for food and travel. They had always dreamed of opening a
@@ -106,7 +86,7 @@ const About = () => {
           for many years to come.
         </Text>
 
-        <TeamHeading>Our Team :</TeamHeading>
+        <SubHeading>Our Team :</SubHeading>
         <Text>
           Our team is made up of passionate and experienced chefs and servers
           who are dedicated to providing our guests with the best possible
