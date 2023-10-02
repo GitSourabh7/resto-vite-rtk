@@ -3,7 +3,20 @@ import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import { setCurrentPage } from "../../../features/paginationSlice";
 import { motion } from "framer-motion";
+import styled from "styled-components";
+import { colors } from "../../../styles/theme.styled";
 
+// Styled components
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 2px solid ${colors.primaryColor};
+  border-radius: 40px;
+  padding: 8px;
+  margin: 10px;
+`;
+
+// React component
 const PaginationComp = () => {
   const dispatch = useDispatch();
 
@@ -13,21 +26,15 @@ const PaginationComp = () => {
 
   // Handle page change
   const handlePageChange = (event, newPage) => {
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     // Dispatch the setCurrentPage action with the new page number
     dispatch(setCurrentPage(newPage));
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        border: "2px solid #1976d2",
-        borderRadius: "40px",
-        padding: "8px",
-        margin: "10px",
-      }}
-    >
+    <PaginationWrapper>
       <Pagination
         color="primary"
         size="medium"
@@ -43,7 +50,7 @@ const PaginationComp = () => {
           </motion.div>
         )}
       />
-    </div>
+    </PaginationWrapper>
   );
 };
 
