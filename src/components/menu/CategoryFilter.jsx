@@ -9,7 +9,31 @@ import {
 } from "../../features/menuSlice";
 import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
 import { store } from "../../store/store";
+import styled from "styled-components";
 
+// Styled components
+const LoadingMessage = styled.div`
+  color: #333;
+  font-size: 18px;
+`;
+
+const StyledButtonGroup = styled(ButtonGroup)`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledButton = styled(Button)`
+  && {
+    ${(props) =>
+      props.variant === "contained" &&
+      `
+      background-color: #1976d2;
+      color: white;
+    `};
+  }
+`;
+
+// React component
 const CategoryFilter = () => {
   const selectedCategory = useSelector(selectSelectedCategory);
   const dispatch = useDispatch();
@@ -40,14 +64,14 @@ const CategoryFilter = () => {
   };
 
   return isLoading ? (
-    <div>Loading categories...</div>
+    <LoadingMessage>Loading categories...</LoadingMessage>
   ) : (
-    <ButtonGroup
+    <StyledButtonGroup
       orientation="vertical"
       aria-label="vertical outlined button group"
     >
       {categories.map((category) => (
-        <Button
+        <StyledButton
           key={category}
           id={category}
           variant={
@@ -61,9 +85,9 @@ const CategoryFilter = () => {
           >
             {category}
           </motion.div>
-        </Button>
+        </StyledButton>
       ))}
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 };
 
