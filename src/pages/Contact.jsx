@@ -23,7 +23,7 @@ const ContactContainer = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 2% 2%;
+  margin: 2rem;
 `;
 
 const SectionHeader = styled.h2`
