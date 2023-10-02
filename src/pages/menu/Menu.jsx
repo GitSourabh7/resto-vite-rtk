@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 
-//Mui
+// Mui
 import { Box } from "@mui/material";
 import Layout from "../../components/layout/Layout";
 import CategoryFilter from "../../components/menu/CategoryFilter";
@@ -14,6 +15,24 @@ import PaginationComp from "../../components/menu/Pagination/PaginationComp";
 import { setMenus } from "../../features/menuSlice";
 import { setTotalPages } from "../../features/paginationSlice";
 import { store } from "../../store/store";
+
+const Container = styled(Box)`
+  display: grid;
+  grid-template-columns: minmax(130px, 130px) 85%;
+`;
+
+const CenteredColumn = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SidePanel = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  align-items: center;
+`;
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -36,23 +55,9 @@ const Menu = () => {
 
   return (
     <Layout>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "minmax(130px, 130px) 85%",
-        }}
-      >
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              m: 2,
-              position: "fixed",
-            }}
-          >
-            {" "}
+      <Container>
+        <CenteredColumn>
+          <SidePanel>
             <motion.div
               whileHover={{ scale: 1.1 }} // Scale up on hover
               whileTap={{ scale: 0.9 }} // Scale down on click
@@ -60,19 +65,13 @@ const Menu = () => {
               <CartButton />
             </motion.div>
             <CategoryFilter />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+          </SidePanel>
+        </CenteredColumn>
+        <CenteredColumn>
           <MenuCard />
           <PaginationComp />
-        </Box>
-      </Box>
+        </CenteredColumn>
+      </Container>
     </Layout>
   );
 };
