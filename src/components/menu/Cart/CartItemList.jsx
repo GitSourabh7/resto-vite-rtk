@@ -1,27 +1,80 @@
-import PropTypes from "prop-types"; // Import PropTypes at the top of your file
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
+import styled from "styled-components";
 import { Box, Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-
 import { removeFromCart } from "../../../features/cartSlice";
 import QuantityInput from "./QuantityInput";
-
 import "@lottiefiles/lottie-player";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+
+const Container = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+`;
+
+const CartItemContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+
+  &:hover {
+    scale: 1.02;
+  }
+`;
+
+const ItemImage = styled.img`
+  margin-right: 20px;
+  border-radius: 10px;
+  height: 100px;
+  width: 160px;
+`;
+
+const ItemDetails = styled.div`
+  flex: 1;
+`;
+
+const ItemInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+const RemoveButtonContainer = styled(motion.div)`
+  &:hover {
+    scale: 1.05;
+  }
+  &:active {
+    scale: 0.95;
+  }
+`;
+
+const EmptyCartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const CartItemList = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items); // Get cartItems from Redux state
-
-  const userId = useSelector((state) => state.user.id); // Get the user object from Redux state
+  const cartItems = useSelector((state) => state.cart.items);
+  const userId = useSelector((state) => state.user.id);
 
   const handleRemove = async (menu) => {
     try {
-      // Make a DELETE request to remove the item from the database
       const response = await axios.delete(
         `http://localhost:3000/cart/remove-from-cart`,
         {
@@ -33,147 +86,73 @@ const CartItemList = () => {
       );
 
       if (response.status === 200) {
-        // Item successfully removed from the database
         console.log("Item removed from the database");
-
-        // Show a success toast
         toast.success("Item removed from cart", {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1000, // Set the display time in milliseconds
+          autoClose: 1000,
         });
-
-        // Delay dispatching the removeFromCart action by 1 second
         setTimeout(() => {
-          // Dispatch the removeFromCart action to update the local state
           dispatch(removeFromCart({ id: menu.id }));
-        }, 1000); // 1000 milliseconds (1 second) delay
+        }, 1000);
       } else {
-        // Handle the error if the request fails
         console.error("Error removing item from the database");
-
-        // Show an error toast
         toast.error("Error removing item from cart", {
           position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1000, // Set the display time in milliseconds
+          autoClose: 1000,
         });
       }
     } catch (error) {
       console.error("Error removing item from the database:", error);
-
-      // Show an error toast
       toast.error("Error removing item from cart", {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 1000, // Set the display time in milliseconds
+        autoClose: 1000,
       });
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "-webkit-fill-available",
-      }}
-    >
-      {/* Item List */}
+    <Container>
       {cartItems.length ? (
         cartItems.map((menu) => {
-          const totalPrice = menu.price * menu.quantity; // Calculate the total price
-
+          const totalPrice = menu.price * menu.quantity;
           return (
-            <motion.div
-              key={menu.id}
-              whileHover={{ scale: 1.02 }} // Scale up on hover
-              // whileTap={{ scale: 0.98 }} // Scale down on click
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  backgroundColor: "#f0f0f0", // Use a lighter background color
-                  padding: "10px",
-                  borderRadius: "5px",
-                  margin: "10px",
-                }}
-                key={menu.id}
-              >
-                <img
-                  src={menu.image}
-                  alt={menu.name}
-                  style={{
-                    marginRight: "20px", // Add some spacing between the image and content
-                    borderRadius: "10px",
-                    height: "100px",
-                    width: "160px",
-                  }}
-                />
-                <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Typography
-                      variant="h5"
-                      style={{
-                        fontWeight: "400",
-                        flex: 1,
-                      }}
-                    >
-                      {menu.name}
-                    </Typography>
-                    <QuantityInput menu={menu} />
+            <CartItemContainer key={menu.id}>
+              <ItemImage src={menu.image} alt={menu.name} />
+              <ItemDetails>
+                <ItemInfo>
+                  <Typography variant="h5" style={{ fontWeight: "400" }}>
+                    {menu.name}
+                  </Typography>
+                  <QuantityInput menu={menu} />
+                </ItemInfo>
+                <PriceContainer>
+                  <Typography style={{ fontSize: "1em", fontStyle: "italic" }}>
+                    ₹ {menu.price}/dish
+                  </Typography>
+                  <div style={{ fontSize: "1.2em", fontWeight: "400" }}>
+                    ₹ {totalPrice}
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginTop: "10px",
-                    }}
+                  <RemoveButtonContainer
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Typography
-                      style={{
-                        fontSize: "1em",
-                        fontStyle: "italic",
-                      }}
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      size="small"
+                      startIcon={<Delete />}
+                      onClick={() => handleRemove(menu)}
                     >
-                      ₹ {menu.price}/dish
-                    </Typography>
-                    <div style={{ fontSize: "1.2em", fontWeight: "400" }}>
-                      ₹ {totalPrice}
-                    </div>
-                    <motion.div
-                      whileHover={{ scale: 1.05 }} // Scale up on hover
-                      whileTap={{ scale: 0.95 }} // Scale down on click
-                    >
-                      <Button
-                        variant="outlined"
-                        color="error"
-                        size="small"
-                        startIcon={<Delete />}
-                        onClick={() => handleRemove(menu)}
-                      >
-                        Remove
-                      </Button>
-                    </motion.div>
-                  </div>
-                </div>
-              </Box>
-            </motion.div>
+                      Remove
+                    </Button>
+                  </RemoveButtonContainer>
+                </PriceContainer>
+              </ItemDetails>
+            </CartItemContainer>
           );
         })
       ) : (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <EmptyCartContainer>
           <lottie-player
             autoplay
             loop
@@ -182,20 +161,18 @@ const CartItemList = () => {
             style={{ width: "680px" }}
           ></lottie-player>
           <Typography variant="h4">Cart is Empty</Typography>
-        </Box>
+        </EmptyCartContainer>
       )}
-    </Box>
+    </Container>
   );
 };
 
-// Add props validation using PropTypes
 CartItemList.propTypes = {
-  userId: PropTypes.number.isRequired, // userId is expected to be a number and is required
+  userId: PropTypes.number.isRequired,
 };
 
-// Provide a default value for userId if it's not provided
 CartItemList.defaultProps = {
-  userId: 1, // You can set the default value to whatever you prefer
+  userId: 1,
 };
 
 export default CartItemList;
