@@ -46,12 +46,17 @@ const AppBarContainer = styled(AppBar)`
 const BoxContainer = styled(Box)`
   display: flex;
   flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
-const LeftBox = styled(Box)`
+const ListContainer = styled(Box)`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
 `;
 
 function CartButton() {
@@ -104,10 +109,10 @@ function CartButton() {
           </Toolbar>
         </AppBarContainer>
         <BoxContainer>
-          <LeftBox>
+          <ListContainer>
             <CartHeader count={cartItems.length} />
             <CartItemList cartItems={cartItems} />
-          </LeftBox>
+          </ListContainer>
           <CartSummary cartItems={cartItems} />
         </BoxContainer>
       </Dialog>
