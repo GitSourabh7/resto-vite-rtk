@@ -1,6 +1,34 @@
-/* eslint-disable react/prop-types */
-import { Box, Typography, Button } from "@mui/material";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
+
+const CartSummaryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+  margin: 10px;
+  padding: 16px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 250px;
+`;
+
+const CartSummaryTitle = styled(Typography)`
+  margin-bottom: 16px;
+  text-decoration: underline;
+  font-weight: bold;
+`;
+
+const SummaryItemContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CheckoutButtonContainer = styled(motion.div)`
+  display: flex;
+  justify-content: center;
+`;
 
 const CartSummary = ({ cartItems }) => {
   if (cartItems.length === 0) {
@@ -18,55 +46,35 @@ const CartSummary = ({ cartItems }) => {
   const subTotal = calculateSubTotal() + deliveryCharges;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        bgcolor: "#f0f0f0",
-        margin: "10px",
-        padding: 2,
-        borderRadius: "5px",
-        width: "100%", // Use relative width
-        maxWidth: "300px", // Set a maximum width if needed
-      }}
-    >
-      <Typography
-        variant="h6" // Use Typography variant
-        sx={{
-          mb: 2,
-          textDecoration: "underline",
-          fontWeight: "bold",
-        }}
-      >
-        Cart Summary
-      </Typography>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <CartSummaryContainer>
+      <CartSummaryTitle variant="h6">Cart Summary</CartSummaryTitle>
+      <SummaryItemContainer>
         <Typography>Items</Typography>
         <Typography>₹ {calculateSubTotal()}</Typography>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      </SummaryItemContainer>
+      <SummaryItemContainer>
         <Typography>Delivery Charges</Typography>
         <Typography>₹ {deliveryCharges}</Typography>
-      </Box>
+      </SummaryItemContainer>
       <hr />
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <SummaryItemContainer>
         <Typography>Subtotal</Typography>
         <Typography>₹ {subTotal}</Typography>
-      </Box>
-      <motion.div
-        whileHover={{ scale: 1.05 }} // Scale up on hover
-        whileTap={{ scale: 0.95 }} // Scale down on click
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
+      </SummaryItemContainer>
+      <CheckoutButtonContainer
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
       >
         <Button variant="contained" sx={{ mt: 3, width: "80%" }}>
           Checkout
         </Button>
-      </motion.div>
-    </Box>
+      </CheckoutButtonContainer>
+    </CartSummaryContainer>
   );
+};
+
+CartSummary.propTypes = {
+  cartItems: PropTypes.array.isRequired,
 };
 
 export default CartSummary;
