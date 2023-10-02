@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import Layout from "../components/layout/Layout";
 import {
   Box,
@@ -18,46 +19,58 @@ import MailIcon from "@mui/icons-material/Mail";
 import CallIcon from "@mui/icons-material/Call";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
+const ContactContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2% 2%;
+`;
+
+const SectionHeader = styled.h2`
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 1rem 0 0.5rem 0;
+`;
+
+const SectionText = styled.p`
+  font-size: 1.2rem;
+`;
+
+const OuterTableContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  width: 100%;
+`;
+
+const ContactLink = styled(Link)`
+  text-decoration: none;
+`;
+
+const FontSize = "1.2rem"; // Common font size
+
 const Contact = () => {
   return (
     <Layout>
-      <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-      >
-        <Box
-          sx={{
-            my: 5,
-            mx: "5%",
-            display: "flex",
-            flexDirection: "column",
-            "& h4": { fontWeight: "bold", mb: 2 },
-          }}
-        >
-          <Typography sx={{ fontSize: "1.2rem" }}>
-            At Resto, we&apos;re committed to providing you with the best dining
-            experiences around the world. Your feedback, questions, and
-            suggestions are important to us. Feel free to get in touch with our
-            dedicated team through the following channels:
-          </Typography>
-          <br />
-          <Typography variant="h4">Customer Support:</Typography>
-          <Typography sx={{ fontSize: "1.2rem", marginTop: "-1rem" }}>
-            Our customer support team is available 24/7 to assist you with any
-            inquiries, reservations, or concerns you may have. Don&apos;t
-            hesitate to reach out:
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            m: 3,
-            mx: "5%",
-            width: "30%",
-            "@media (max-width: 900px)": {
-              width: "300px",
-            },
-          }}
-        >
-          <TableContainer sx={{ borderRadius: "15px" }} component={Paper}>
+      <ContactContainer>
+        <SectionText>
+          At Resto, we&apos;re committed to providing you with the best dining
+          experiences around the world. Your feedback, questions, and
+          suggestions are important to us. Feel free to get in touch with our
+          dedicated team through the following channels:
+        </SectionText>
+        <br />
+        <SectionHeader>Customer Support:</SectionHeader>
+        <SectionText>
+          Our customer support team is available 24/7 to assist you with any
+          inquiries, reservations, or concerns you may have. Don&apos;t hesitate
+          to reach out:
+        </SectionText>
+        <OuterTableContainer>
+          <TableContainer
+            sx={{ borderRadius: "20px", width: "100%", maxWidth: "400px" }}
+            component={Paper}
+          >
             <Table aria-label="contact table">
               <TableHead>
                 <TableRow>
@@ -65,7 +78,7 @@ const Contact = () => {
                     sx={{ bgcolor: "#1976d2", color: "white" }}
                     align="center"
                   >
-                    <Typography sx={{ fontSize: 25 }}>
+                    <Typography sx={{ fontSize: "1.5rem" }}>
                       Contact Details
                     </Typography>
                   </TableCell>
@@ -76,14 +89,11 @@ const Contact = () => {
                   <TableCell
                     sx={{ p: 1, display: "flex", alignItems: "center" }}
                   >
-                    <SupportAgentIcon sx={{ color: "red", fontSize: 40 }} />
-                    <Typography sx={{ pl: 2, fontSize: 20 }}>
-                      <Link
-                        sx={{ textDecoration: "none" }}
-                        href="tel:1800 12 3456"
-                      >
+                    <SupportAgentIcon sx={{ color: "red", fontSize: "2rem" }} />
+                    <Typography sx={{ pl: 2, fontSize: FontSize }}>
+                      <ContactLink href="tel:1800 12 3456">
                         1800 12 3456
-                      </Link>
+                      </ContactLink>
                       <em> (Toll-Free)</em>
                     </Typography>
                   </TableCell>
@@ -92,9 +102,11 @@ const Contact = () => {
                   <TableCell
                     sx={{ p: 1, display: "flex", alignItems: "center" }}
                   >
-                    <MailIcon sx={{ color: "skyblue", fontSize: 40 }} />
-                    <Typography sx={{ pl: 2, fontSize: 20 }}>
-                      <Link href="mailto:help@resto.com">help@resto.com</Link>
+                    <MailIcon sx={{ color: "skyblue", fontSize: "2rem" }} />
+                    <Typography sx={{ pl: 2, fontSize: FontSize }}>
+                      <ContactLink href="mailto:help@resto.com">
+                        help@resto.com
+                      </ContactLink>
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -102,14 +114,11 @@ const Contact = () => {
                   <TableCell
                     sx={{ p: 1, display: "flex", alignItems: "center" }}
                   >
-                    <CallIcon sx={{ color: "green", fontSize: 40 }} />
-                    <Typography sx={{ pl: 2, fontSize: 20 }}>
-                      <Link
-                        sx={{ textDecoration: "none" }}
-                        href="tel:+91 9876543210"
-                      >
+                    <CallIcon sx={{ color: "green", fontSize: "2rem" }} />
+                    <Typography sx={{ pl: 2, fontSize: FontSize }}>
+                      <ContactLink href="tel:+91 9876543210">
                         +91 9876543210
-                      </Link>
+                      </ContactLink>
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -117,8 +126,10 @@ const Contact = () => {
                   <TableCell
                     sx={{ p: 1, display: "flex", alignItems: "center" }}
                   >
-                    <AccessTimeIcon sx={{ color: "violet", fontSize: 40 }} />
-                    <Typography sx={{ pl: 2, fontSize: 20 }}>
+                    <AccessTimeIcon
+                      sx={{ color: "violet", fontSize: "2rem" }}
+                    />
+                    <Typography sx={{ pl: 2, fontSize: FontSize }}>
                       10.00 am to 10.00 pm <em>(Office Hours)</em>
                     </Typography>
                   </TableCell>
@@ -126,71 +137,56 @@ const Contact = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Box>
-        <Box
-          sx={{
-            my: 5,
-            mx: "5%",
-            display: "flex",
-            flexDirection: "column",
-            "& h4": { fontWeight: "bold", mb: 2 },
-          }}
-        >
-          <Typography variant="h4">Restaurant Partners:</Typography>
-          <Typography sx={{ fontSize: "1.2rem", marginTop: "-1rem" }}>
-            If you&apos;re a restaurant owner interested in partnering with
-            Resto, or if you have any business-related inquiries, please contact
-            our restaurant partnership team:
+        </OuterTableContainer>
+        <SectionHeader>Restaurant Partners:</SectionHeader>
+        <SectionText>
+          If you&apos;re a restaurant owner interested in partnering with Resto,
+          or if you have any business-related inquiries, please contact our
+          restaurant partnership team:
+        </SectionText>
+        <SectionText>
+          Email:{" "}
+          <ContactLink href="mailto:partners@domain.com">
+            partners@domain.com
+          </ContactLink>
+          , Phone:{" "}
+          <ContactLink href="tel:+91 9876543210">+91 9876543210</ContactLink>
+        </SectionText>
+        <br />
+        <SectionHeader> Feedback and Suggestions: </SectionHeader>
+        <SectionText>
+          We value your feedback and suggestions as they help us improve our
+          services. If you have any ideas, comments, or recommendations, please
+          send them to: Email:{" "}
+          <ContactLink href="mailto:feedback@resto.com">
+            feedback@resto.com
+          </ContactLink>
+        </SectionText>
+        <br />
+        <SectionHeader> Visit Us: </SectionHeader>
+        <SectionText>
+          If you&apos;re in the neighborhood, we&apos;d love to meet you in
+          person. Here&apos;s our headquarters&apos;
+        </SectionText>
+        <div>
+          <Typography
+            variant="h6"
+            sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
+          >
+            Our Address
           </Typography>
-          <Typography sx={{ fontSize: "1.2rem" }}>
-            Email:{" "}
-            <Link
-              sx={{ textDecoration: "none" }}
-              href="mailto:partners@domain.com"
-            >
-              partners@domain.com
-            </Link>
-            , Phone:{" "}
-            <Link sx={{ textDecoration: "none" }} href="tel:+91 9876543210">
-              +91 9876543210
-            </Link>
+          <Typography
+            variant="body1"
+            sx={{ fontSize: "1.2rem", fontStyle: "italic" }}
+          >
+            123 Main Street,
+            <br />
+            Bangalore,
+            <br />
+            Karnataka, 560 560
           </Typography>
-          <br />
-          <Typography variant="h4"> Feedback and Suggestions: </Typography>
-          <Typography sx={{ fontSize: "1.2rem", marginTop: "-1rem" }}>
-            We value your feedback and suggestions as they help us improve our
-            services. If you have any ideas, comments, or recommendations,
-            please send them to: Email:{" "}
-            <Link sx={{ textDecoration: "none" }} href="feedback@resto.com">
-              feedback@resto.com
-            </Link>
-          </Typography>
-          <br />
-          <Typography variant="h4"> Visit Us: </Typography>
-          <Typography sx={{ fontSize: "1.2rem", marginTop: "-1rem" }}>
-            If you&apos;re in the neighborhood, we&apos;d love to meet you in
-            person. Here&apos;s our headquarters&apos;
-          </Typography>
-          <div>
-            <Typography
-              variant="h6"
-              sx={{ fontSize: "1.2rem", fontWeight: "bold" }}
-            >
-              Our Address
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontSize: "1.2rem", fontStyle: "italic" }}
-            >
-              123 Main Street,
-              <br />
-              Bangalore,
-              <br />
-              Karnataka, 560 560
-            </Typography>
-          </div>
-        </Box>
-      </Box>
+        </div>
+      </ContactContainer>
     </Layout>
   );
 };
