@@ -11,69 +11,84 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/logo.svg";
-import "./HeaderStyle.css";
-import AccountMenu from "../../common/AccountMenu";
 import { motion } from "framer-motion";
+import styled from "styled-components";
+import AccountMenu from "../../common/AccountMenu";
+import GradientLogo from "../../common/GradientLogo";
+
+const NavigationMenu = styled.ul`
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const NavigationMenuItem = styled.li`
+  margin: 0px 20px;
+`;
+
+const NavLinkStyled = styled(NavLink)`
+  text-decoration: none;
+  color: white;
+
+  &.active {
+    font-weight: bolder !important;
+    font-size: large;
+    text-decoration: underline !important;
+  }
+`;
+
+const MobileNavigation = styled.ul`
+  list-style: none;
+`;
+
+const MobileNavigationItem = styled.li`
+  margin-top: 10px;
+`;
+
+const MobileNavLink = styled(NavLink)`
+  text-decoration: none;
+  font-size: 1.4rem;
+  color: black;
+`;
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  //handle menu click
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  //Menu Drawer
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography
-        color={"goldenrod"}
-        variant="h6"
-        component="div"
-        sx={{ flexGrow: 1, my: 2 }}
-      >
-        <img src={Logo} alt="logo" height={"45"} width="140" />
-      </Typography>
+      <GradientLogo />
 
-      {/* This divider gets displayed when drawer is expanded */}
       <Divider />
 
-      <ul className="mobile-navigation">
-        <li>
-          <motion.div
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on click
-          >
-            <NavLink activeclassname="active" to={"/"}>
+      <MobileNavigation>
+        <MobileNavigationItem>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <MobileNavLink to="/" activeClassName="active">
               Home
-            </NavLink>
+            </MobileNavLink>
           </motion.div>
-        </li>
-        <li>
-          <motion.div
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on click
-          >
-            <NavLink to={"/menu"}>Menu</NavLink>
+        </MobileNavigationItem>
+        <MobileNavigationItem>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <MobileNavLink to="/menu">Menu</MobileNavLink>
           </motion.div>
-        </li>
-        <li>
-          <motion.div
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on click
-          >
-            <NavLink to={"/about"}>About</NavLink>
+        </MobileNavigationItem>
+        <MobileNavigationItem>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <MobileNavLink to="/about">About</MobileNavLink>
           </motion.div>
-        </li>
-        <li>
-          <motion.div
-            whileHover={{ scale: 1.1 }} // Scale up on hover
-            whileTap={{ scale: 0.9 }} // Scale down on click
-          >
-            <NavLink to={"/contact"}>Contact</NavLink>
+        </MobileNavigationItem>
+        <MobileNavigationItem>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <MobileNavLink to="/contact">Contact</MobileNavLink>
           </motion.div>
-        </li>
-      </ul>
+        </MobileNavigationItem>
+      </MobileNavigation>
     </Box>
   );
 
@@ -97,51 +112,49 @@ const Header = () => {
               component="div"
               sx={{ flexGrow: 1, display: "flex" }}
             >
-              <NavLink to={"/"}>
+              <NavLinkStyled to="/">
                 <img src={Logo} alt="logo" height={"45"} width="150" />
-              </NavLink>
+              </NavLinkStyled>
             </Typography>
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <ul className="navigation-menu">
-                <li>
+              <NavigationMenu>
+                <NavigationMenuItem>
                   <motion.div
-                    whileHover={{ scale: 1.1 }} // Scale up on hover
-                    whileTap={{ scale: 0.9 }} // Scale down on click
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <NavLink activeclassname="active" to={"/"}>
+                    <NavLinkStyled to="/" activeClassName="active">
                       Home
-                    </NavLink>
+                    </NavLinkStyled>
                   </motion.div>
-                </li>
-                <li>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <motion.div
-                    whileHover={{ scale: 1.1 }} // Scale up on hover
-                    whileTap={{ scale: 0.9 }} // Scale down on click
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <NavLink to={"/menu"}>Menu</NavLink>
+                    <NavLinkStyled to="/menu">Menu</NavLinkStyled>
                   </motion.div>
-                </li>
-                <li>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <motion.div
-                    whileHover={{ scale: 1.1 }} // Scale up on hover
-                    whileTap={{ scale: 0.9 }} // Scale down on click
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <NavLink to={"/about"}>About</NavLink>
+                    <NavLinkStyled to="/about">About</NavLinkStyled>
                   </motion.div>
-                </li>
-                <li>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <motion.div
-                    whileHover={{ scale: 1.1 }} // Scale up on hover
-                    whileTap={{ scale: 0.9 }} // Scale down on click
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    <NavLink to={"/contact"}>Contact</NavLink>
+                    <NavLinkStyled to="/contact">Contact</NavLinkStyled>
                   </motion.div>
-                </li>
-              </ul>
+                </NavigationMenuItem>
+              </NavigationMenu>
             </Box>
-            <Box>
-              <AccountMenu />
-            </Box>
+            <AccountMenu />
           </Toolbar>
         </AppBar>
         <Box component="nav">
