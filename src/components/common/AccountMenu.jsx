@@ -1,30 +1,86 @@
-import React from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Box from "@mui/material/Box";
+import styled from "styled-components";
+
+//MUI components
 import Avatar from "@mui/material/Avatar";
-import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import { Typography } from "@mui/material";
+
+//MUI Icons
+import PersonIcon from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
 import LoginIcon from "@mui/icons-material/Login";
 import Logout from "@mui/icons-material/Logout";
-import { Typography } from "@mui/material";
+
+//Import slices
 import { clearCart } from "../../features/cartSlice";
 import { clearUser } from "../../features/userSlice";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
-import "react-toastify/dist/ReactToastify.css"; // Import the Toastify CSS
+
+//Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Styled components
+const AccountButton = styled(IconButton)`
+  margin-left: 2px;
+`;
+
+const StyledAvatar = styled(Avatar)`
+  width: 32px;
+  height: 32px;
+`;
+
+const StyledTypography = styled(Typography)`
+  text-align: center;
+  padding: 10px;
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledMenu = styled(Menu)`
+  && {
+    overflow: visible;
+    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
+    margin-top: 1.5rem;
+
+    .MuiAvatar-root {
+      width: 32px;
+      height: 32px;
+      margin-left: -0.5rem;
+      margin-right: 1rem;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 14px;
+      width: 10px;
+      height: 10px;
+      background-color: "background.paper";
+      transform: translateY(-50%) rotate(45deg);
+      z-index: 0;
+    }
+  }
+`;
 
 export default function AccountMenu() {
   const authenticated = useSelector((state) => !!state.user.id);
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -36,8 +92,7 @@ export default function AccountMenu() {
   };
 
   const handleLogin = () => {
-    // Redirect to the login page by changing the URL
-    window.location.href = "/login"; // Replace "/login" with the actual path to your login page
+    window.location.href = "/login";
   };
 
   const handleLogout = () => {
@@ -47,10 +102,9 @@ export default function AccountMenu() {
     localStorage.removeItem("jwtToken");
     handleClose();
 
-    // Show a toast notification when the user logs out
     toast.success("You have been logged out", {
       position: "top-right",
-      autoClose: 3000, // Close after 3 seconds
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -60,26 +114,25 @@ export default function AccountMenu() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
-          <IconButton
+          <AccountButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
             {authenticated ? (
-              <Avatar src={user.avatarUrl} sx={{ width: 32, height: 32 }} />
+              <StyledAvatar src={user.avatarUrl} />
             ) : (
-              <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+              <StyledAvatar />
             )}
-          </IconButton>
+          </AccountButton>
         </Tooltip>
       </Box>
-      <Menu
+      <StyledMenu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -87,74 +140,44 @@ export default function AccountMenu() {
         onClick={handleClose}
         PaperProps={{
           elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Typography
-          sx={{
-            textAlign: "center",
-            padding: "10px",
-          }}
-        >
+        <StyledTypography>
           {authenticated ? `${user.firstName} ${user.lastName}` : "Guest"}
-        </Typography>
+        </StyledTypography>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <StyledMenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonIcon fontSize="small" />
           </ListItemIcon>
           My account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        </StyledMenuItem>
+        <StyledMenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </StyledMenuItem>
 
         {authenticated ? (
-          <MenuItem onClick={handleLogout}>
+          <StyledMenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
             Logout
-          </MenuItem>
+          </StyledMenuItem>
         ) : (
-          <MenuItem onClick={handleLogin}>
+          <StyledMenuItem onClick={handleLogin}>
             <ListItemIcon>
               <LoginIcon fontSize="small" />
             </ListItemIcon>
             Login
-          </MenuItem>
+          </StyledMenuItem>
         )}
-      </Menu>
-
-      {/* Render the ToastContainer for notifications */}
+      </StyledMenu>
       <ToastContainer position="top-right" autoClose={3000} />
-    </React.Fragment>
+    </>
   );
 }
