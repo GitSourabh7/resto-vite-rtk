@@ -5,6 +5,62 @@ import CardButtons from "./CardButtons";
 import { selectMenus } from "../../../features/menuSlice";
 import { store } from "../../../store/store";
 import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const StyledBox = styled(Box)`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+`;
+
+const StyledCard = styled(Card)`
+  max-width: 330px;
+  display: flex;
+  margin: 2px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #9c96960f;
+  }
+`;
+
+const StyledCardContent = styled(CardContent)`
+  margin-bottom: -75px;
+`;
+
+const StyledCardMedia = styled(CardMedia)`
+  min-height: 300px;
+  border-radius: 20px;
+`;
+
+const DescriptionBox = styled(Box)`
+  text-align: center;
+  background-color: #c5ccc5c4;
+  padding: 15px;
+  position: relative;
+  top: -50px;
+  margin: 10px;
+  border-radius: 30px;
+`;
+
+const StyledTypography = styled(Typography)`
+  font-family: cursive;
+`;
+
+const DescriptionText = styled(Typography)`
+  height: ${(props) => (props.showFull ? "auto" : "100px")};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  margin-bottom: ${(props) => (props.showFull ? "0" : "15px")};
+  cursor: pointer;
+`;
+
+const ShowMoreText = styled(Typography)`
+  cursor: pointer;
+`;
 
 const MenuCard = () => {
   const menus = useSelector(selectMenus);
@@ -35,94 +91,42 @@ const MenuCard = () => {
   };
 
   return (
-    <Box
-      ref={containerRef}
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        height: "490px",
-        overflowY: "scroll",
-      }}
-    >
+    <StyledBox ref={containerRef}>
       {menus.slice(firstItem, lastItem).map((menu, index) => (
-        <motion.div
-          whileHover={{ scale: 1.02 }} // Scale up on hover
-          key={menu.name}
-        >
-          <Card
-            key={menu.name}
-            sx={{
-              maxWidth: "330px",
-              display: "flex",
-              m: 2,
-              borderRadius: "10px",
-            }}
-          >
-            <CardContent
-              sx={{
-                marginBottom: "-75px",
-                "&:hover": {
-                  background: "#9c96960f",
-                },
-              }}
-            >
-              <CardMedia
-                sx={{ minHeight: "300px", borderRadius: "20px" }}
+        <motion.div whileHover={{ scale: 1.02 }} key={menu.name}>
+          <StyledCard key={menu.name}>
+            <StyledCardContent>
+              <StyledCardMedia
                 component={"img"}
                 src={menu.image}
                 alt={menu.name}
               />
-              <Box
-                sx={{
-                  textAlign: "center",
-                  backgroundColor: "#c5ccc5c4",
-                  padding: "15px",
-                  position: "relative",
-                  top: "-50px",
-                  mx: "10px",
-                  borderRadius: "30px",
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  component={"div"}
-                  sx={{ fontFamily: "cursive" }}
-                >
+              <DescriptionBox>
+                <StyledTypography variant="h5" gutterBottom>
                   {menu.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    height: showFullDescriptions[index] ? "auto" : "100px",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    position: "relative",
-                    marginBottom: showFullDescriptions[index] ? "0" : "15px",
-                    cursor: "pointer",
-                  }}
+                </StyledTypography>
+                <DescriptionText
+                  showFull={showFullDescriptions[index]}
                   onClick={() => toggleDescription(index)}
                 >
                   {menu.description}
-                </Typography>
+                </DescriptionText>
                 {!showFullDescriptions[index] && (
-                  <Typography
+                  <ShowMoreText
                     variant="body2"
                     color="primary"
                     onClick={() => toggleDescription(index)}
-                    sx={{ cursor: "pointer" }}
                   >
                     Show more
-                  </Typography>
+                  </ShowMoreText>
                 )}
-              </Box>
+              </DescriptionBox>
               <CardButtons item={menu} />
-            </CardContent>
-          </Card>
+            </StyledCardContent>
+          </StyledCard>
         </motion.div>
       ))}
-    </Box>
+    </StyledBox>
   );
 };
 
