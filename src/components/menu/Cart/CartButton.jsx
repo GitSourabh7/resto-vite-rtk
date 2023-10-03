@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
-import {
-  AppBar,
-  Box,
-  Badge,
-  Button,
-  Dialog,
-  IconButton,
-  Slide,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Dialog, IconButton, Slide, Toolbar, Typography } from "@mui/material";
 import {
   Close as CloseIcon,
   ShoppingCart as ShoppingCartIcon,
@@ -21,43 +10,18 @@ import CartSummary from "./CartSummary";
 import CartHeader from "./CartHeader";
 import CartItemList from "./CartItemList";
 
+import {
+  CartButtonContainer,
+  CartBadge,
+  StyledButton,
+  AppBarContainer,
+  BoxContainer,
+  ListContainer,
+} from "./CartButton.styled"; // Import the styled components
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const CartButtonContainer = styled.div`
-  position: relative;
-`;
-
-const CartBadge = styled(Badge)`
-  margin: 20px 10px;
-  z-index: 1;
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: 20px !important;
-  margin: 3px;
-`;
-
-const AppBarContainer = styled(AppBar)`
-  position: relative;
-`;
-
-const BoxContainer = styled(Box)`
-  display: flex;
-  flex-direction: row;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-const ListContainer = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
 
 function CartButton() {
   const [open, setOpen] = useState(false);
