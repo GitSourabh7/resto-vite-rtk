@@ -13,7 +13,7 @@ export const Heading = styled.h4`
 `;
 
 export const SubHeading = styled.h2`
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   margin: 1rem 0 0.5rem 0;
 `;
