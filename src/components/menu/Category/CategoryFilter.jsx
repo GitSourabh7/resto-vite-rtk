@@ -1,38 +1,21 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import { motion } from "framer-motion";
 import {
   filterByCategory,
   selectSelectedCategory,
-} from "../../features/menuSlice";
-import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
-import { store } from "../../store/store";
-import styled from "styled-components";
-import { apiUrl } from "../../../apiConfig";
-
-// Styled components
-const LoadingMessage = styled.div`
-  color: #333;
-  font-size: 18px;
-`;
-
-const StyledButtonGroup = styled(ButtonGroup)`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledButton = styled(Button)`
-  && {
-    ${(props) =>
-      props.variant === "contained" &&
-      `
-      background-color: #1976d2;
-      color: white;
-    `};
-  }
-`;
+} from "../../../features/menuSlice";
+import {
+  setTotalPages,
+  setCurrentPage,
+} from "../../../features/paginationSlice";
+import { store } from "../../../store/store";
+import { apiUrl } from "../../../../apiConfig";
+import {
+  LoadingMessage,
+  StyledButtonGroup,
+  StyledButton,
+} from "./CategoryFilter.styled"; // Import the styled components
 
 // React component
 const CategoryFilter = () => {
