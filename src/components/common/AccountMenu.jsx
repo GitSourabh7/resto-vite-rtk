@@ -1,17 +1,11 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
 
 //MUI components
-import Avatar from "@mui/material/Avatar";
-import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { Typography } from "@mui/material";
 
 //MUI Icons
 import PersonIcon from "@mui/icons-material/Person";
@@ -27,54 +21,13 @@ import { clearUser } from "../../features/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Styled components
-const AccountButton = styled(IconButton)`
-  margin-left: 2px;
-`;
-
-const StyledAvatar = styled(Avatar)`
-  width: 32px;
-  height: 32px;
-`;
-
-const StyledTypography = styled(Typography)`
-  text-align: center;
-  padding: 10px;
-`;
-
-const StyledMenuItem = styled(MenuItem)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledMenu = styled(Menu)`
-  && {
-    overflow: visible;
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
-    margin-top: 1.5rem;
-
-    .MuiAvatar-root {
-      width: 32px;
-      height: 32px;
-      margin-left: -0.5rem;
-      margin-right: 1rem;
-    }
-
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      right: 14px;
-      width: 10px;
-      height: 10px;
-      background-color: "background.paper";
-      transform: translateY(-50%) rotate(45deg);
-      z-index: 0;
-    }
-  }
-`;
+import {
+  AccountButton,
+  StyledAvatar,
+  StyledTypography,
+  StyledMenuItem,
+  StyledMenu,
+} from "./AccountMenu.styled";
 
 export default function AccountMenu() {
   const authenticated = useSelector((state) => !!state.user.id);
