@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { apiUrl } from "../../apiConfig";
 
 // Mui
 import { Box } from "@mui/material";
@@ -40,7 +41,7 @@ const Menu = () => {
   useEffect(() => {
     // Simulate fetching menu data from an API
     setTimeout(() => {
-      fetch("http://localhost:3000/menu")
+      fetch(apiUrl + "/menu")
         .then((response) => response.json())
         .then((data) => {
           dispatch(setMenus(data));

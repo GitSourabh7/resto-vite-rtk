@@ -10,6 +10,7 @@ import "@lottiefiles/lottie-player";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { apiUrl } from "../../../../apiConfig";
 
 const Container = styled(Box)`
   display: flex;
@@ -75,15 +76,12 @@ const CartItemList = () => {
 
   const handleRemove = async (menu) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/cart/remove-from-cart`,
-        {
-          data: {
-            user_id: userId,
-            product_id: menu.id,
-          },
-        }
-      );
+      const response = await axios.delete(apiUrl + `/cart/remove-from-cart`, {
+        data: {
+          user_id: userId,
+          product_id: menu.id,
+        },
+      });
 
       if (response.status === 200) {
         console.log("Item removed from the database");

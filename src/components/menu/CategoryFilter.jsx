@@ -10,6 +10,7 @@ import {
 import { setTotalPages, setCurrentPage } from "../../features/paginationSlice";
 import { store } from "../../store/store";
 import styled from "styled-components";
+import { apiUrl } from "../../../apiConfig";
 
 // Styled components
 const LoadingMessage = styled.div`
@@ -43,7 +44,7 @@ const CategoryFilter = () => {
 
   useEffect(() => {
     // Fetch categories when the component mounts
-    fetch("http://localhost:3000/category")
+    fetch(apiUrl + "/category")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data);

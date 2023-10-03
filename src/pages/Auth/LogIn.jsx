@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setCartItems } from "../../features/cartSlice";
+import { apiUrl } from "../../../apiConfig";
 
 const defaultTheme = createTheme();
 
@@ -35,7 +36,7 @@ export default function LogIn() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(apiUrl + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +62,7 @@ export default function LogIn() {
         localStorage.setItem("jwtToken", data.token);
 
         // Trigger a new request to fetch cart data
-        const cartResponse = await fetch("http://localhost:3000/cart", {
+        const cartResponse = await fetch(apiUrl + "/cart", {
           method: "GET",
           headers: {
             "X-User-ID": data.user.id, // Include the user ID in the request headers

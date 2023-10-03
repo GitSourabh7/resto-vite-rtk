@@ -9,6 +9,7 @@ import { styled } from "@mui/system";
 import { Unstable_NumberInput as NumberInput } from "@mui/base/Unstable_NumberInput";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { apiUrl } from "../../../../apiConfig";
 
 const StyledInputRoot = styled("div")({
   fontFamily: "IBM Plex Sans, sans-serif",
@@ -104,8 +105,8 @@ const CustomNumberInput = ({ id, value }) => {
     try {
       const url =
         action === "increase"
-          ? "http://localhost:3000/cart/increase-quantity"
-          : "http://localhost:3000/cart/decrease-quantity";
+          ? apiUrl + "/cart/increase-quantity"
+          : apiUrl + "/cart/decrease-quantity";
 
       const response = await axios.post(url, {
         user_id: userId,

@@ -4,6 +4,7 @@ import { Button, ButtonGroup, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
@@ -12,9 +13,11 @@ import {
 } from "../../../features/cartSlice";
 import { selectUser } from "../../../features/userSlice";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
 import { motion } from "framer-motion";
+import { apiUrl } from "../../../../apiConfig";
 
+// Toastify
+import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
 
 // Import color variables from your theme.js file
@@ -80,12 +83,9 @@ const CardButtons = ({ item }) => {
       try {
         dispatch(removeFromCart(item));
 
-        const response = await axios.delete(
-          "http://localhost:3000/cart/remove-from-cart",
-          {
-            data: { user_id: user.id, product_id: item.id },
-          }
-        );
+        const response = await axios.delete(apiUrl + "/cart/remove-from-cart", {
+          data: { user_id: user.id, product_id: item.id },
+        });
 
         // Show a success toast
         toast.success("Item removed from cart", {
@@ -108,15 +108,12 @@ const CardButtons = ({ item }) => {
       try {
         dispatch(addToCart(item));
 
-        const response = await axios.post(
-          "http://localhost:3000/cart/add-to-cart",
-          {
-            user_id: user.id,
-            product_id: item.id,
-            product_name: item.name,
-            quantity: 1,
-          }
-        );
+        const response = await axios.post(apiUrl + "/cart/add-to-cart", {
+          user_id: user.id,
+          product_id: item.id,
+          product_name: item.name,
+          quantity: 1,
+        });
 
         // Show a success toast
         toast.success("Item added to cart", {

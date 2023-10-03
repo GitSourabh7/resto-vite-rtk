@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { apiUrl } from "../../../apiConfig";
 
 const Signup = () => {
   const defaultTheme = createTheme();
@@ -61,7 +62,7 @@ const Signup = () => {
 
     try {
       // Send a POST request to your server to create the user
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch(apiUrl + "/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
