@@ -1,34 +1,11 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import { Typography, Button } from "@mui/material";
-import { motion } from "framer-motion";
-
-const CartSummaryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #f0f0f0;
-  margin: 10px;
-  padding: 16px;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 250px;
-`;
-
-const CartSummaryTitle = styled(Typography)`
-  margin-bottom: 16px;
-  text-decoration: underline;
-  font-weight: bold;
-`;
-
-const SummaryItemContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CheckoutButtonContainer = styled(motion.div)`
-  display: flex;
-  justify-content: center;
-`;
+import {
+  CartSummaryContainer,
+  CartSummaryTitle,
+  SummaryItemContainer,
+  CheckoutButtonContainer,
+} from "./CartSummary.styled";
 
 const CartSummary = ({ cartItems }) => {
   if (cartItems.length === 0) {
