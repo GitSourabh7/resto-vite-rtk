@@ -20,15 +20,23 @@ export const ShareButton = styled(Button)`
 `;
 
 export const CartButton = styled(Button)`
-  border: ${(props) =>
-    `2px solid ${
-      props.isCartButtonDisabled
-        ? colors.disabledColor
-        : props.isItemInCart
-        ? colors.secondaryColor
-        : colors.primaryColor
-    } !important`};
+  border: 2px solid transparent !important;
   border-radius: 40px !important;
+  color: ${(props) =>
+    props.isCartButtonDisabled
+      ? colors.disabledColor
+      : props.isItemInCart
+      ? colors.secondaryColor
+      : colors.primaryColor} !important;
+  &:hover {
+    border: 3px solid
+      ${(props) =>
+        props.isCartButtonDisabled
+          ? colors.disabledColor
+          : props.isItemInCart
+          ? colors.secondaryColor
+          : colors.primaryColor} !important;
+  }
 `;
 
 export const StyledTypography = styled(Typography)`
