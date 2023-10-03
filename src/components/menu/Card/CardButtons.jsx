@@ -103,6 +103,7 @@ const CardButtons = ({ item }) => {
           <CartButton
             isItemInCart={isItemInCart}
             isCartButtonDisabled={!isAuthenticated}
+            disabled={!isAuthenticated} // Disable the button
             onClick={handleToggleCart}
           >
             <StyledTypography
