@@ -1,9 +1,15 @@
 import { styled } from "@mui/system";
 import { Link as MUILink } from "@mui/material";
-import { TableCell, TableContainer, Typography } from "@mui/material";
+import { Box, TableCell, TableContainer, Typography } from "@mui/material";
+
+export const OuterTableContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+`;
 
 export const StyledTableContainer = styled(TableContainer)`
   border-radius: 15px;
+  max-width: 450px;
 `;
 
 export const StyledTableHeaderCell = styled(TableCell)`
