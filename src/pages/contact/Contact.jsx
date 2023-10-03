@@ -1,5 +1,5 @@
-import Layout from "../components/layout/Layout";
-import ContactTable from "./contact/ContactTable";
+import Layout from "../../components/layout/Layout";
+import ContactTable from "./ContactTable";
 import styled from "styled-components";
 
 // Styled components
