@@ -1,71 +1,27 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import { Button, ButtonGroup, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import Button from "@mui/material/Button";
 import ShareIcon from "@mui/icons-material/Share";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  StyledButtonGroup,
+  ShareButton,
+  CartButton,
+  StyledTypography,
+  CustomShoppingCartIcon,
+} from "./CardButtons.styled"; // Import the styled components
 
-import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
   removeFromCart,
   selectCartItems,
 } from "../../../features/cartSlice";
 import { selectUser } from "../../../features/userSlice";
-import axios from "axios";
-import { motion } from "framer-motion";
 import { apiUrl } from "../../../../apiConfig";
-
-// Toastify
-import { toast, ToastContainer } from "react-toastify"; // Import toast functions and ToastContainer
-import "react-toastify/dist/ReactToastify.css"; // Import the toast CSS
-
-// Import color variables from your theme.js file
-import { colors } from "../../../styles/theme.styled";
-
-const StyledButtonGroup = styled(ButtonGroup)`
-  top: -50px;
-  position: relative;
-  padding: 10px;
-  display: flex !important;
-  justify-content: space-evenly !important;
-`;
-
-const ShareButton = styled(Button)`
-  border: none !important;
-`;
-
-const CartButton = styled(Button)`
-  border: ${(props) =>
-    `2px solid ${
-      props.isCartButtonDisabled
-        ? colors.disabledColor
-        : props.isItemInCart
-        ? colors.secondaryColor
-        : colors.primaryColor
-    } !important`};
-  border-radius: 40px !important;
-`;
-
-// Styled Typography component
-const StyledTypography = styled(Typography)`
-  color: ${(props) =>
-    props.isCartButtonDisabled
-      ? colors.disabledColor
-      : props.isItemInCart
-      ? colors.secondaryColor
-      : colors.primaryColor} !important;
-`;
-
-// Styled component for ShoppingCartIcon
-const CustomShoppingCartIcon = styled(ShoppingCartIcon)`
-  color: ${(props) =>
-    props.isItemInCart
-      ? colors.secondaryColor
-      : props.isCartButtonDisabled
-      ? colors.disabledColor
-      : colors.primaryColor};
-`;
 
 const CardButtons = ({ item }) => {
   const dispatch = useDispatch();
