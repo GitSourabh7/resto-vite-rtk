@@ -9,48 +9,18 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavLink } from "react-router-dom";
 import Logo from "../../../assets/logo.svg";
 import { motion } from "framer-motion";
-import styled from "styled-components";
 import AccountMenu from "../../common/AccountMenu";
 import GradientLogo from "../../common/GradientLogo";
-
-const NavigationMenu = styled.ul`
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const NavigationMenuItem = styled.li`
-  margin: 0px 20px;
-`;
-
-const NavLinkStyled = styled(NavLink)`
-  text-decoration: none;
-  color: white;
-
-  &.active {
-    font-weight: bolder !important;
-    font-size: large;
-    text-decoration: underline !important;
-  }
-`;
-
-const MobileNavigation = styled.ul`
-  list-style: none;
-`;
-
-const MobileNavigationItem = styled.li`
-  margin-top: 10px;
-`;
-
-const MobileNavLink = styled(NavLink)`
-  text-decoration: none;
-  font-size: 1.4rem;
-  color: black;
-`;
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavLinkStyled,
+  MobileNavigation,
+  MobileNavigationItem,
+  MobileNavLink,
+} from "./Header.styled";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
