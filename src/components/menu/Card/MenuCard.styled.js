@@ -39,8 +39,8 @@ export const DescriptionBox = styled(Box)`
   border-radius: 30px;
 `;
 
-export const StyledTypography = styled(Typography)`
-  font-family: cursive;
+export const StyledTypography = styled.h5`
+  font-size: 1.4rem;
 `;
 
 export const DescriptionText = styled(Typography)`

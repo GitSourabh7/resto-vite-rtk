@@ -55,9 +55,7 @@ const MenuCard = () => {
                 alt={menu.name}
               />
               <DescriptionBox>
-                <StyledTypography variant="h5" gutterBottom>
-                  {menu.name}
-                </StyledTypography>
+                <StyledTypography>{menu.name}</StyledTypography>
                 <DescriptionText
                   showFull={showFullDescriptions[index]}
                   onClick={() => toggleDescription(index)}
