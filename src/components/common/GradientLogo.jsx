@@ -1,16 +1,5 @@
-import styled from "styled-components";
 import FancyText from "@carefully-coded/react-text-gradient";
-
-const HeaderText = styled.h1`
-  font-size: 30rem;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 70px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: #1976d2;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-`;
+import { HeaderText } from "./GradientLogo.styled";
 
 export default function GradientLogo() {
   return (
