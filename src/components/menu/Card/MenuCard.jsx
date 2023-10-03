@@ -1,66 +1,19 @@
 import { useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 import CardButtons from "./CardButtons";
 import { selectMenus } from "../../../features/menuSlice";
 import { store } from "../../../store/store";
-import { motion } from "framer-motion";
-import styled from "styled-components";
-
-const StyledBox = styled(Box)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
-`;
-
-const StyledCard = styled(Card)`
-  max-width: 330px;
-  display: flex;
-  margin: 2px;
-  border-radius: 10px;
-
-  &:hover {
-    background: #9c96960f;
-  }
-`;
-
-const StyledCardContent = styled(CardContent)`
-  margin-bottom: -75px;
-`;
-
-const StyledCardMedia = styled(CardMedia)`
-  min-height: 300px;
-  border-radius: 20px;
-`;
-
-const DescriptionBox = styled(Box)`
-  text-align: center;
-  background-color: #c5ccc5c4;
-  padding: 15px;
-  position: relative;
-  top: -50px;
-  margin: 10px;
-  border-radius: 30px;
-`;
-
-const StyledTypography = styled(Typography)`
-  font-family: cursive;
-`;
-
-const DescriptionText = styled(Typography)`
-  height: ${(props) => (props.showFull ? "auto" : "100px")};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  position: relative;
-  margin-bottom: ${(props) => (props.showFull ? "0" : "15px")};
-  cursor: pointer;
-`;
-
-const ShowMoreText = styled(Typography)`
-  cursor: pointer;
-`;
+import {
+  StyledBox,
+  StyledCard,
+  StyledCardContent,
+  StyledCardMedia,
+  DescriptionBox,
+  StyledTypography,
+  DescriptionText,
+  ShowMoreText,
+} from "./MenuCard.styled"; // Import the styled components
 
 const MenuCard = () => {
   const menus = useSelector(selectMenus);
