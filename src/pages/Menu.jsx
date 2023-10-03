@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import styled from "styled-components";
 import { apiUrl } from "../../apiConfig";
 
 // Mui
-import { Box } from "@mui/material";
 import Layout from "../components/layout/Layout";
 import CategoryFilter from "../components/menu/Category/CategoryFilter";
 import MenuCard from "../components/menu/Card/MenuCard";
@@ -17,23 +15,7 @@ import { setMenus } from "../features/menuSlice";
 import { setTotalPages } from "../features/paginationSlice";
 import { store } from "../store/store";
 
-const Container = styled(Box)`
-  display: grid;
-  grid-template-columns: minmax(130px, 130px) 85%;
-`;
-
-const CenteredColumn = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const SidePanel = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  align-items: center;
-`;
+import { Container, CenteredColumn, SidePanel } from "./Menu.styled";
 
 const Menu = () => {
   const dispatch = useDispatch();
