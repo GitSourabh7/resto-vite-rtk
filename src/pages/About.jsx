@@ -1,30 +1,5 @@
 import Layout from "../components/layout/Layout";
-import styled from "styled-components";
-
-// Styled components
-const AboutContainer = styled.div`
-  margin: 2% 5%;
-  text-align: left;
-`;
-
-const Heading = styled.h4`
-  font-weight: bold;
-  margin: 2rem 0;
-  font-size: 2rem;
-  text-align: center;
-`;
-
-const SubHeading = styled.h2`
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 1rem 0 0.5rem 0;
-`;
-
-const Text = styled.p`
-  font-size: 1.2rem;
-  text-align: justify;
-  margin: 1rem 0;
-`;
+import { AboutContainer, Heading, SubHeading, Text } from "./About.styled";
 
 const About = () => {
   return (
