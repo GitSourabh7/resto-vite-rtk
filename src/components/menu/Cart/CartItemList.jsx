@@ -1,73 +1,26 @@
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import styled from "styled-components";
-import { Box, Button, Typography } from "@mui/material";
+
+import { Button, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { removeFromCart } from "../../../features/cartSlice";
 import QuantityInput from "./QuantityInput";
 import "@lottiefiles/lottie-player";
+import {
+  Container,
+  CartItemContainer,
+  ItemImage,
+  ItemDetails,
+  ItemInfo,
+  PriceContainer,
+  RemoveButtonContainer,
+  EmptyCartContainer,
+} from "./CartItemList.styled";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from "framer-motion";
+
 import { apiUrl } from "../../../../apiConfig";
-
-const Container = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  width: -webkit-fill-available;
-`;
-
-const CartItemContainer = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px;
-
-  &:hover {
-    scale: 1.02;
-  }
-`;
-
-const ItemImage = styled.img`
-  margin-right: 20px;
-  border-radius: 10px;
-  height: 100px;
-  width: 160px;
-`;
-
-const ItemDetails = styled.div`
-  flex: 1;
-`;
-
-const ItemInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PriceContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
-
-const RemoveButtonContainer = styled(motion.div)`
-  &:hover {
-    scale: 1.05;
-  }
-  &:active {
-    scale: 0.95;
-  }
-`;
-
-const EmptyCartContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
 
 const CartItemList = () => {
   const dispatch = useDispatch();
