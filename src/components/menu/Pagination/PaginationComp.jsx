@@ -1,20 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
-import { setCurrentPage } from "../../features/paginationSlice";
+import { setCurrentPage } from "../../../features/paginationSlice";
 import { motion } from "framer-motion";
-import styled from "styled-components";
-import { colors } from "../../styles/theme.styled";
-
-// Styled components
-const PaginationWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  border: 2px solid ${colors.primaryColor};
-  border-radius: 40px;
-  padding: 8px;
-  margin: 10px;
-`;
+import { PaginationWrapper } from "./PaginationComp.styled";
 
 // React component
 const PaginationComp = () => {
